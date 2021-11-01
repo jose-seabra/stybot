@@ -1,0 +1,10 @@
+{
+    "accessToken": "",
+    "refreshToken": "",
+    "scope": [
+        "chat:edit",
+        "chat:read"
+    ],
+    "expiresIn": 14577,
+    "obtainmentTimestamp": 1635718176805
+}

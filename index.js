@@ -4,7 +4,9 @@ import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
 import { getCompliment } from "./functions/compliment.js"
-import { getRandomNumber, getSR } from "./functions/dice.js"
+import { getRandomNumber } from "./functions/dice.js"
+import { getSR } from "./functions/sr.js"
+import { pyramid } from "./functions/pyramid.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -48,24 +50,27 @@ async function main() {
 
         const [command, ...args] = message.slice(PREFIX.length).split(/ +/g)
         // : message.slice(message.indexOf("stybot")).trim().split(/ +/g)
+        let output
 
         switch (command) {
-            case "ping":
-                chatClient.say(channel, "Pong!")
-                break
             case "dice":
-                const diceRoll = Math.floor(Math.random() * 6) + 1
-                chatClient.say(channel, `@${user} rolled a ${diceRoll}`)
+                output = getRandomNumber(args[0])
+                chatClient.say(channel, `@${user} rolled a ${output}`)
                 break
             case "sr":
-                const result = getSR(channel)
+                output = getSR(channel)
                 chatClient.say(
                     channel,
-                    `${user} your SR is ${result.sr} ${result.emote}`
+                    `${user} your SR is ${output.sr} ${output.emote}`
                 )
                 break
             case "compliment":
                 chatClient.say(channel, `@${user} ${getCompliment()}`)
+                break
+            case "pyramid":
+                output = pyramid(args[0])
+                if (output === undefined) break
+                chatClient.say(channel, `${output}`)
                 break
         }
     })

@@ -7,6 +7,7 @@ import { getCompliment } from "./functions/compliment.js"
 import { getRandomNumber } from "./functions/dice.js"
 import { getSR } from "./functions/sr.js"
 import { pyramid } from "./functions/pyramid.js"
+import { getRandomJoke } from "./functions/joke.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -34,16 +35,14 @@ async function main() {
     await chatClient.connect()
 
     const PREFIX = "!"
+    let wait = false
 
     chatClient.onMessage((channel, user, message) => {
-        function debug(output) {
-            chatClient.say(channel, output)
-        }
-
         if (
-            !message.startsWith(PREFIX) &&
-            !message.startsWith("stybot") &&
-            !message.startsWith("@stybot")
+            (!message.startsWith(PREFIX) &&
+                !message.startsWith("stybot") &&
+                !message.startsWith("@stybot")) ||
+            wait
         ) {
             return
         }
@@ -71,6 +70,20 @@ async function main() {
                 output = pyramid(args[0])
                 if (output === undefined) break
                 chatClient.say(channel, `${output}`)
+                break
+            case "badjoke":
+                getRandomJoke().then((output) => {
+                    if (output.type === "single") {
+                        chatClient.say(channel, `${output.joke}`)
+                    } else if (output.type === "twopart") {
+                        wait = true
+                        chatClient.say(channel, `${output.setup}`)
+                        setTimeout(() => {
+                            chatClient.say(channel, `${output.delivery}`)
+                            wait = false
+                        }, 5000)
+                    }
+                })
                 break
         }
     })

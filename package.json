@@ -8,6 +8,7 @@
     "@twurple/auth": "^5.0.8",
     "@twurple/chat": "^5.0.8",
     "@twurple/eventsub": "^5.0.8",
+    "axios": "^0.24.0",
     "dotenv": "^10.0.0"
   },
   "devDependencies": {},

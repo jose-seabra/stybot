@@ -2,7 +2,9 @@ import "./env.js"
 import { RefreshingAuthProvider } from "@twurple/auth"
 import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
-import getCompliment from "./functions/compliment.js"
+
+import { getCompliment } from "./functions/compliment.js"
+import { getRandomNumber, getSR } from "./functions/dice.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -29,20 +31,41 @@ async function main() {
 
     await chatClient.connect()
 
+    const PREFIX = "!"
+
     chatClient.onMessage((channel, user, message) => {
-        switch (message) {
-            case "!ping":
+        function debug(output) {
+            chatClient.say(channel, output)
+        }
+
+        if (
+            !message.startsWith(PREFIX) &&
+            !message.startsWith("stybot") &&
+            !message.startsWith("@stybot")
+        ) {
+            return
+        }
+
+        const [command, ...args] = message.slice(PREFIX.length).split(/ +/g)
+        // : message.slice(message.indexOf("stybot")).trim().split(/ +/g)
+
+        switch (command) {
+            case "ping":
                 chatClient.say(channel, "Pong!")
                 break
-            case "!dice":
+            case "dice":
                 const diceRoll = Math.floor(Math.random() * 6) + 1
                 chatClient.say(channel, `@${user} rolled a ${diceRoll}`)
                 break
-            case "!compliment":
-                chatClient.say(channel, `@${user} ${getCompliment()}`)
+            case "sr":
+                const result = getSR(channel)
+                chatClient.say(
+                    channel,
+                    `${user} your SR is ${result.sr} ${result.emote}`
+                )
                 break
-            case "!test":
-                console.log("test")
+            case "compliment":
+                chatClient.say(channel, `@${user} ${getCompliment()}`)
                 break
         }
     })

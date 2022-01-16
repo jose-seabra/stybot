@@ -1,53 +1,40 @@
-// const num = srDice()
-// const name = context["display-name"]
-// let emote
-// target = target.substring(1)
 
-// if (num <= 500) {
-//     emote = emotes[target].dice1
-// } else if (num > 500 && num <= 1000) {
-//     emote = emotes[target].dice2
-// } else if (num > 1000 && num <= 1500) {
-//     emote = emotes[target].dice3
-// } else if (num > 1500 && num <= 2000) {
-//     emote = emotes[target].dice4
-// } else if (num > 2000 && num <= 2500) {
-//     emote = emotes[target].dice5
-// } else if (num > 2500 && num <= 3000) {
-//     emote = emotes[target].dice6
-// } else if (num > 3000 && num <= 3500) {
-//     emote = emotes[target].dice7
-// } else if (num > 3500 && num <= 4000) {
-//     emote = emotes[target].dice8
-// } else if (num > 4000 && num <= 4500) {
-//     emote = emotes[target].dice9
-// } else if (num > 4500) {
-//     emote = emotes[target].dice10
-// }
-// setTimeout(function () {
-//     client.say(target, `${name} your SR is ${num} ${emote}`)
-// }, 1000)
+function getSR(channel) {
+    const channelName = channel.substring(1)
+    const sr = Math.floor(Math.random() * 4850) + 1
+    let emote
 
+    if (!emotes[channelName]) return
 
-// class Dice {
-//     constructor(maxVal = 6) {
-//         const roll = Math.floor(Math.random() * max) + 1
-//     }
+    if (sr <= 500) {
+        emote = emotes[channelName].dice1
+    } else if (sr > 500 && sr <= 1000) {
+        emote = emotes[channelName].dice2
+    } else if (sr > 1000 && sr <= 1500) {
+        emote = emotes[channelName].dice3
+    } else if (sr > 1500 && sr <= 2000) {
+        emote = emotes[channelName].dice4
+    } else if (sr > 2000 && sr <= 2500) {
+        emote = emotes[channelName].dice5
+    } else if (sr > 2500 && sr <= 3000) {
+        emote = emotes[channelName].dice6
+    } else if (sr > 3000 && sr <= 3500) {
+        emote = emotes[channelName].dice7
+    } else if (sr > 3500 && sr <= 4000) {
+        emote = emotes[channelName].dice8
+    } else if (sr > 4000 && sr <= 4500) {
+        emote = emotes[channelName].dice9
+    } else if (sr > 4500) {
+        emote = emotes[channelName].dice10
+    }
+    return {
+        sr,
+        emote,
+    }
+}
 
-//     sr() {
-//         switch (roll) {
-//             case 500:
-//                 console.log('xdf');
-//                 break;
-        
-//             default:
-//                 break;
-//         }
-//     }
+function getRandomNumber(maxNum) {
+    return Math.floor(Math.random() * maxNum) + 1
+}
 
-//     return() {
-//         return roll
-//     }
-// }
-
-// export default Dice
+export { getRandomNumber, getSR }

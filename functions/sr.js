@@ -32,4 +32,46 @@ function getSR(channel) {
     }
 }
 
-export { getSR }
+function playSlots(channel) {
+    const slotFaces = 3
+    let win = false
+    let emotesArray = []
+
+    console.log(channel)
+    channel = channel.substring(1)
+
+    let slotsArray = [
+        Math.floor(Math.random() * slotFaces) + 1,
+        Math.floor(Math.random() * slotFaces) + 1,
+        Math.floor(Math.random() * slotFaces) + 1,
+    ]
+
+    for (let i = 0; i < slotsArray.length; i++) {
+        switch (slotsArray[i]) {
+            case 1:
+                emotesArray.push(emotes[channel].slot1)
+                break
+            case 2:
+                emotesArray.push(emotes[channel].slot2)
+                break
+            case 3:
+                emotesArray.push(emotes[channel].slot3)
+                break
+        }
+    }
+
+    if (slotsArray[0] === slotsArray[1] && slotsArray[1] === slotsArray[2]) {
+        win = true
+    }
+
+    if (win === true) {
+        win = "And won " + emotes[channel].slotsWin
+    } else {
+        win = "Better luck next time " + emotes[channel].slotsLoss
+    }
+
+    emotesArray.push(win)
+    return emotesArray
+}
+
+export { getSR, playSlots }

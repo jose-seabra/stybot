@@ -5,9 +5,10 @@ import { promises as fs } from "fs"
 
 import { getCompliment } from "./functions/compliment.js"
 import { getRandomNumber } from "./functions/dice.js"
-import { getSR } from "./functions/sr.js"
+import { getSR, playSlots } from "./functions/sr.js"
 import { pyramid } from "./functions/pyramid.js"
 import { getRandomJoke } from "./functions/joke.js"
+import { hasNonAlphanumeric } from "./helpers/helper.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -63,8 +64,18 @@ async function main() {
                     `${user} your SR is ${output.sr} ${output.emote}`
                 )
                 break
-            case "compliment":
-                chatClient.say(channel, `@${user} ${getCompliment()}`)
+            case "slots":
+                output = playSlots(channel)
+                chatClient.say(
+                    channel,
+                    `${user} rolled | ${output[0]} | ${output[1]} | ${output[2]} | ${output[3]}`
+                )
+                break
+            case "cheer":
+                chatClient.say(
+                    channel,
+                    `${args[0] ?? user} ${getCompliment()} KPOPheart`
+                )
                 break
             case "pyramid":
                 output = pyramid(args[0])

@@ -8,7 +8,8 @@ import { getRandomNumber } from "./functions/dice.js"
 import { getSR, playSlots } from "./functions/sr.js"
 import { pyramid } from "./functions/pyramid.js"
 import { getRandomJoke } from "./functions/joke.js"
-import { hasNonAlphanumeric } from "./helpers/helper.js"
+import { getTranslation, detectLanguage } from "./functions/translate.js"
+import { hasNonAlphanumeric, removeNonAlphanumeric } from "./helpers/helper.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -53,9 +54,34 @@ async function main() {
         let output
 
         switch (command) {
+            case "cheer":
+                chatClient.say(
+                    channel,
+                    `${args[0] ?? user} ${getCompliment()} KPOPheart`
+                )
+                break
             case "dice":
                 output = getRandomNumber(args[0])
                 chatClient.say(channel, `@${user} rolled a ${output}`)
+                break
+            case "badjoke":
+                getRandomJoke().then((output) => {
+                    if (output.type === "single") {
+                        chatClient.say(channel, `${output.joke}`)
+                    } else if (output.type === "twopart") {
+                        wait = true
+                        chatClient.say(channel, `${output.setup}`)
+                        setTimeout(() => {
+                            chatClient.say(channel, `${output.delivery}`)
+                            wait = false
+                        }, 5000)
+                    }
+                })
+                break
+            case "pyramid":
+                output = pyramid(args[0])
+                if (output === undefined) break
+                chatClient.say(channel, `${output}`)
                 break
             case "sr":
                 output = getSR(channel)
@@ -71,29 +97,26 @@ async function main() {
                     `${user} rolled | ${output[0]} | ${output[1]} | ${output[2]} | ${output[3]}`
                 )
                 break
-            case "cheer":
-                chatClient.say(
-                    channel,
-                    `${args[0] ?? user} ${getCompliment()} KPOPheart`
-                )
-                break
-            case "pyramid":
-                output = pyramid(args[0])
-                if (output === undefined) break
-                chatClient.say(channel, `${output}`)
-                break
-            case "badjoke":
-                getRandomJoke().then((output) => {
-                    if (output.type === "single") {
-                        chatClient.say(channel, `${output.joke}`)
-                    } else if (output.type === "twopart") {
-                        wait = true
-                        chatClient.say(channel, `${output.setup}`)
-                        setTimeout(() => {
-                            chatClient.say(channel, `${output.delivery}`)
-                            wait = false
-                        }, 5000)
-                    }
+            case "translate":
+                let text
+                let targetLang
+                if (args[0].startsWith("to:")) {
+                    targetLang = args[0].substring(3)
+                    text = message.substring(command.length + 8)
+                } else {
+                    text = message.substring(command.length + 2)
+                }
+
+                detectLanguage(text).then((originLang) => {
+                    return getTranslation(text, originLang, targetLang).then(
+                        (response) => {
+                            console.log(response)
+                            chatClient.say(
+                                channel,
+                                `@${user}: ${response.translatedText}`
+                            )
+                        }
+                    )
                 })
                 break
         }

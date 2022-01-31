@@ -136,11 +136,27 @@ async function main() {
         )
     })
 
-    chatClient.onSubGift((channel, user, subInfo) => {
+    const giftCounts = new Map()
+    chatClient.onCommunitySub((channel, user, subInfo) => {
+        const previousGiftCount = giftCounts.get(user) ?? 0
+        giftCounts.set(user, previousGiftCount + subInfo.count)
         chatClient.say(
             channel,
-            `Thanks to ${subInfo.gifter} for gifting a subscription to ${user}!`
+            `Thanks ${user} for gifting ${subInfo.count} subs to the community!`
         )
+    })
+
+    chatClient.onSubGift((channel, recipient, subInfo) => {
+        const user = subInfo.gifter
+        const previousGiftCount = giftCounts.get(user) ?? 0
+        if (previousGiftCount > 0) {
+            giftCounts.set(user, previousGiftCount - 1)
+        } else {
+            chatClient.say(
+                channel,
+                `Thanks ${user} for gifting a sub to ${recipient}!`
+            )
+        }
     })
 }
 

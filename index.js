@@ -9,6 +9,7 @@ import { getSR, playSlots } from "./functions/sr.js"
 import { pyramid } from "./functions/pyramid.js"
 import { getRandomJoke } from "./functions/joke.js"
 import { getTranslation, detectLanguage } from "./functions/translate.js"
+import { getWeather } from "./functions/weather.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -107,15 +108,14 @@ async function main() {
                 }
 
                 detectLanguage(text)
-                    .then(
-                        async (originLang) => {
-                            if (originLang === 404) {
-                                chatClient.say(
-                                    channel,
-                                    `@${user} sorry I couldn't detect the language`
-                                )
-                                return;
-                            }
+                    .then(async (originLang) => {
+                        if (originLang === 404) {
+                            chatClient.say(
+                                channel,
+                                `@${user} sorry I couldn't detect the language`
+                            )
+                            return
+                        }
                         const response = await getTranslation(
                             text,
                             originLang,
@@ -125,13 +125,22 @@ async function main() {
                             channel,
                             `@${user} lang:${response.sourceLanguageCode} "${response.translatedText}"`
                         )
-                        }
-                    )
-                    .catch((error) => {
-                        console.log("aoaiaioaiaia")
                     })
+                    .catch((error) => {})
                 break
-
+            case "weather":
+                getWeather(args[0]).then((response) => {
+                    console.log(response)
+                    chatClient.say(
+                        channel,
+                        `@${user} current weather for ${response.data.location.name}/${response.data.location.country}. 
+                        Temp: ${response.data.current.temp_c}ºC/${response.data.current.temp_f}ºF - Feels like ${response.data.current.feelslike_c}ºC/${response.data.current.feelslike_f}ºF
+                        Wind: ${response.data.current.wind_kph}KPH/${response.data.current.wind_mph}MPH
+                        Precipitation: ${response.data.current.precip_mm}mm
+                        Condition: ${response.data.current.condition.text}`
+                    )
+                })
+                break
         }
     })
 

@@ -9,7 +9,6 @@ import { getSR, playSlots } from "./functions/sr.js"
 import { pyramid } from "./functions/pyramid.js"
 import { getRandomJoke } from "./functions/joke.js"
 import { getTranslation, detectLanguage } from "./functions/translate.js"
-import { hasNonAlphanumeric, removeNonAlphanumeric } from "./helpers/helper.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -107,18 +106,32 @@ async function main() {
                     text = message.substring(command.length + 2)
                 }
 
-                detectLanguage(text).then((originLang) => {
-                    return getTranslation(text, originLang, targetLang).then(
-                        (response) => {
-                            console.log(response)
-                            chatClient.say(
-                                channel,
-                                `@${user}: ${response.translatedText}`
-                            )
+                detectLanguage(text)
+                    .then(
+                        async (originLang) => {
+                            if (originLang === 404) {
+                                chatClient.say(
+                                    channel,
+                                    `@${user} sorry I couldn't detect the language`
+                                )
+                                return;
+                            }
+                        const response = await getTranslation(
+                            text,
+                            originLang,
+                            targetLang
+                        )
+                        chatClient.say(
+                            channel,
+                            `@${user} lang:${response.sourceLanguageCode} "${response.translatedText}"`
+                        )
                         }
                     )
-                })
+                    .catch((error) => {
+                        console.log("aoaiaioaiaia")
+                    })
                 break
+
         }
     })
 

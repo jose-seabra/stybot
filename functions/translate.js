@@ -1,6 +1,36 @@
 import axios from "axios"
 
-async function getTranslation(q, sourceLanguageCode, targetLanguageCode = 'en') {
+async function detectLanguage(input) {
+    return axios
+        .post(
+            "https://ws.detectlanguage.com/0.2/detect",
+            {
+                q: input,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.DETECT_LANGUAGE_API_KEY}`,
+                },
+            }
+        )
+        .then((response) => {
+            for (const language of response.data.data.detections) {
+                if (language.isReliable === true) {
+                    return language.language
+                }
+            }
+            return 404
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
+async function getTranslation(
+    q,
+    sourceLanguageCode,
+    targetLanguageCode = "en"
+) {
     return axios
         .post(
             "https://cloud.yandex.com/api/translate/translate",
@@ -15,7 +45,7 @@ async function getTranslation(q, sourceLanguageCode, targetLanguageCode = 'en') 
                 },
             }
         )
-        .then(function (response) {
+        .then((response) => {
             return (response = {
                 q,
                 sourceLanguageCode,
@@ -23,34 +53,8 @@ async function getTranslation(q, sourceLanguageCode, targetLanguageCode = 'en') 
                 translatedText: response.data.translations[0].text,
             })
         })
-        .catch(function (error) {
-            console.log(error)
-        })
-}
-
-async function detectLanguage(input) {
-    return axios
-        .post(
-            "https://ws.detectlanguage.com/0.2/detect",
-            {
-                q: input,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${process.env.DETECT_LANGUAGE_API_KEY}`,
-                },
-            }
-        )
-        .then(function (response) {
-            for (const language of response.data.data.detections) {
-                if (language.isReliable === true) {
-                    return language.language
-                }
-            }
-            return 'I couldn\'t detect the language'
-        })
-        .catch(function (error) {
-            console.log(error)
+        .catch((error) => {
+            return error
         })
 }
 

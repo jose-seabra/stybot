@@ -9,7 +9,7 @@ import { getSR, playSlots } from "./functions/sr.js"
 import { pyramid } from "./functions/pyramid.js"
 import { getRandomJoke } from "./functions/joke.js"
 import { getTranslation, detectLanguage } from "./functions/translate.js"
-import { getWeather } from "./functions/weather.js"
+import { getWeather, getTimezone } from "./functions/weather.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -138,6 +138,15 @@ async function main() {
                         Wind: ${response.data.current.wind_kph}KPH/${response.data.current.wind_mph}MPH
                         Precipitation: ${response.data.current.precip_mm}mm
                         Condition: ${response.data.current.condition.text}`
+                    )
+                })
+                break
+            case "timezone":
+                getTimezone(args[0]).then((response) => {
+                    console.log(response.data.location)
+                    chatClient.say(
+                        channel,
+                        `@${user} current time in ${response.data.location.name}/${response.data.location.country}: ${response.data.location.localtime}`
                     )
                 })
                 break

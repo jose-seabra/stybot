@@ -10,6 +10,7 @@ import { pyramid } from "./functions/pyramid.js"
 import { getRandomJoke } from "./functions/joke.js"
 import { getTranslation, detectLanguage } from "./functions/translate.js"
 import { getWeather, getTimezone } from "./functions/weather.js"
+import { getWikiArticle } from "./functions/wikipedia.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -143,10 +144,17 @@ async function main() {
                 break
             case "timezone":
                 getTimezone(args[0]).then((response) => {
-                    console.log(response.data.location)
                     chatClient.say(
                         channel,
                         `@${user} current time in ${response.data.location.name}/${response.data.location.country}: ${response.data.location.localtime}`
+                    )
+                })
+                break
+            case "wiki":
+                getWikiArticle(args).then((response) => {
+                    chatClient.say(
+                        channel,
+                        response
                     )
                 })
                 break

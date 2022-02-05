@@ -58,7 +58,7 @@ async function main() {
             case "cheer":
                 chatClient.say(
                     channel,
-                    `${args[0] ?? user} ${getCompliment()} KPOPheart`
+                    `@${args[0] ?? user} ${getCompliment()} KPOPheart`
                 )
                 break
             case "dice":
@@ -88,14 +88,14 @@ async function main() {
                 output = getSR(channel)
                 chatClient.say(
                     channel,
-                    `${user} your SR is ${output.sr} ${output.emote}`
+                    `@${user} your SR is ${output.sr} ${output.emote}`
                 )
                 break
             case "slots":
                 output = playSlots(channel)
                 chatClient.say(
                     channel,
-                    `${user} rolled | ${output[0]} | ${output[1]} | ${output[2]} | ${output[3]}`
+                    `@${user} rolled | ${output[0]} | ${output[1]} | ${output[2]} | ${output[3]}`
                 )
                 break
             case "translate":
@@ -152,10 +152,7 @@ async function main() {
                 break
             case "wiki":
                 getWikiArticle(args).then((response) => {
-                    chatClient.say(
-                        channel,
-                        response
-                    )
+                    chatClient.say(channel, response)
                 })
                 break
         }

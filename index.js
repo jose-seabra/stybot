@@ -138,7 +138,8 @@ async function main() {
                         Temp: ${response.data.current.temp_c}ºC/${response.data.current.temp_f}ºF - Feels like ${response.data.current.feelslike_c}ºC/${response.data.current.feelslike_f}ºF
                         Wind: ${response.data.current.wind_kph}KPH/${response.data.current.wind_mph}MPH
                         Precipitation: ${response.data.current.precip_mm}mm
-                        Condition: ${response.data.current.condition.text}`
+                        Condition: ${response.data.current.condition.text}
+                        Local time: ${response.data.location.localtime}`
                     )
                 })
                 break

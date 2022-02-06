@@ -130,8 +130,7 @@ async function main() {
                     .catch((error) => {})
                 break
             case "weather":
-                getWeather(args[0]).then((response) => {
-                    console.log(response)
+                getWeather(args).then((response) => {
                     chatClient.say(
                         channel,
                         `@${user} current weather for ${response.data.location.name}/${response.data.location.country}. 
@@ -144,7 +143,7 @@ async function main() {
                 })
                 break
             case "timezone":
-                getTimezone(args[0]).then((response) => {
+                getTimezone(args).then((response) => {
                     chatClient.say(
                         channel,
                         `@${user} current time in ${response.data.location.name}/${response.data.location.country}: ${response.data.location.localtime}`

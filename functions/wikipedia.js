@@ -1,17 +1,29 @@
 import wtf from "wtf_wikipedia"
 
-async function getWikiArticle(args) {
-    const q = args.join(" ")
+let active = true
+let delay = 30000
 
-    return wtf
-        .fetch(q)
-        .then((doc) => {
-            const response = doc.text().substring(0, 495) + "(...)"
-            return response
-        })
-        .catch((error) => {
-            return `Couldn't find an entry matching ${q}`
-        })
+async function getWikiArticle(args) {
+    if (active) {
+        active = false
+        setTimeout(() => {
+            active = true
+        }, delay)
+
+        const q = args.join(" ")
+
+        return wtf
+            .fetch(q)
+            .then((doc) => {
+                const response = doc.text().substring(0, 495) + "(...)"
+                return response
+            })
+            .catch((error) => {
+                return `Couldn't find an entry matching ${q}`
+            })
+    } else {
+        return ''
+    }
 }
 
 export { getWikiArticle }

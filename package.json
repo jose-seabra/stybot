@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
-    "@twurple/auth": "^5.0.8",
-    "@twurple/chat": "^5.0.8",
-    "@twurple/eventsub": "^5.0.8",
-    "axios": "^0.24.0",
-    "dotenv": "^10.0.0",
-    "wtf_wikipedia": "^9.0.3"
+    "@twurple/auth": "^5.2.0",
+    "@twurple/chat": "^5.2.0",
+    "@twurple/eventsub": "^5.2.0",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.19",
+    "wtf_wikipedia": "^10.0.2"
   },
   "devDependencies": {},
   "keywords": [],

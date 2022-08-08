@@ -3,6 +3,8 @@ import { RefreshingAuthProvider } from "@twurple/auth"
 import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
+import { sleep } from "./helpers/helper.js"
+
 import { getCompliment } from "./functions/compliment.js"
 import { getRandomNumber } from "./functions/dice.js"
 import { getSR, playSlots } from "./functions/sr.js"
@@ -70,12 +72,10 @@ async function main() {
                     if (output.type === "single") {
                         chatClient.say(channel, `${output.joke}`)
                     } else if (output.type === "twopart") {
-                        wait = true
                         chatClient.say(channel, `${output.setup}`)
-                        setTimeout(() => {
+                        sleep(5000).then(() =>
                             chatClient.say(channel, `${output.delivery}`)
-                            wait = false
-                        }, 5000)
+                        )
                     }
                 })
                 break

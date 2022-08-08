@@ -6,4 +6,8 @@ function removeNonAlphanumeric(input) {
     return input.replace(/[^a-zA-Z]/g, "")
 }
 
-export { hasNonAlphanumeric, removeNonAlphanumeric }
+function sleep(millis) {
+    return new Promise((resolve) => setTimeout(resolve, millis))
+}
+
+export { hasNonAlphanumeric, removeNonAlphanumeric, sleep }

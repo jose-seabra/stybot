@@ -3,7 +3,7 @@ const emotes = {
         slot1: "OSFrog",
         slot2: "OhMyDog ",
         slot3: "CoolCat",
-        slotsWin: "bttvNice", 
+        slotsWin: "bttvNice",
         slotsLoss: "Jebasted",
         dice1: "PoroSad",
         dice2: "DansGame",
@@ -16,20 +16,52 @@ const emotes = {
         dice9: "PogChamp",
         dice10: "PogBones",
     },
+    sillentstriker: {
+        slot1: "HYPERCHIPS",
+        slot2: "chipsaWETH",
+        slot3: "chipsaWazow",
+        slotsWin: "POGGERS",
+        slotsLoss: "docSmash",
+        dice1: "ChuSay",
+        dice2: "DOCING",
+        dice3: "PEEPEES",
+        dice4: "TANTIES",
+        dice5: "AAUGH",
+        dice6: "ChugChamp",
+        dice7: "batPls",
+        dice8: "GAMING",
+        dice9: "forsenBased",
+        dice10: "CatChamp",
+    },
+    bellaboo: {
+        slot1: "pikaSpin",
+        slot2: "Avacatospin",
+        slot3: "TrollSpin",
+        slotsWin: "POGGERS",
+        slotsLoss: "NOOOO",
+        dice1: "catSad",
+        dice2: "Smadge",
+        dice3: "TrollDespair",
+        dice4: "monkaStop",
+        dice5: "pokiBrow",
+        dice6: "LebronSilly",
+        dice7: "BoneZone",
+        dice8: "xqcL",
+        dice9: "lizardRave",
+        dice10: "BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT",
+    },
 }
 
 function getSR(channel) {
-    const channelName = channel.substring(1)
     const sr = Math.floor(Math.random() * 4850) + 1
     let emote
     let emoteset
 
-    if (!emotes[channelName]) {
-        emoteset = emotes['default']
-    } else {
-        emoteset = emotes[channelName]
-    }
-    
+    channel = channel.substring(1)
+
+    emotes[channel]
+        ? (emoteset = emotes[channel])
+        : (emoteset = emotes["default"])
 
     if (sr <= 500) {
         emote = emoteset.dice1
@@ -60,11 +92,15 @@ function getSR(channel) {
 
 function playSlots(channel) {
     const slotFaces = 3
-    let win = false
+    let response
+    let emoteset
     let emotesArray = []
 
-    console.log(channel)
     channel = channel.substring(1)
+
+    emotes[channel]
+        ? (emoteset = emotes[channel])
+        : (emoteset = emotes["default"])
 
     let slotsArray = [
         Math.floor(Math.random() * slotFaces) + 1,
@@ -75,28 +111,24 @@ function playSlots(channel) {
     for (let i = 0; i < slotsArray.length; i++) {
         switch (slotsArray[i]) {
             case 1:
-                emotesArray.push(emotes[channel].slot1)
+                emotesArray.push(emoteset.slot1)
                 break
             case 2:
-                emotesArray.push(emotes[channel].slot2)
+                emotesArray.push(emoteset.slot2)
                 break
             case 3:
-                emotesArray.push(emotes[channel].slot3)
+                emotesArray.push(emoteset.slot3)
                 break
         }
     }
 
     if (slotsArray[0] === slotsArray[1] && slotsArray[1] === slotsArray[2]) {
-        win = true
-    }
-
-    if (win === true) {
-        win = "And won " + emotes[channel].slotsWin
+        response = "And won " + emoteset.slotsWin
     } else {
-        win = "Better luck next time " + emotes[channel].slotsLoss
+        response = "Better luck next time " + emoteset.slotsLoss
     }
 
-    emotesArray.push(win)
+    emotesArray.push(response)
     return emotesArray
 }
 

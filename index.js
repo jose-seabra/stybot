@@ -5,6 +5,7 @@ import { promises as fs } from "fs"
 
 import { sleep } from "./helpers/helper.js"
 
+// TODO move function imports to a single import file
 import { getCompliment } from "./functions/compliment.js"
 import { getRandomNumber } from "./functions/dice.js"
 import { getSR, playSlots } from "./functions/sr.js"
@@ -13,6 +14,7 @@ import { getRandomJoke } from "./functions/joke.js"
 import { getTranslation, detectLanguage } from "./functions/translate.js"
 import { getWeather, getTimezone } from "./functions/weather.js"
 import { getWikiArticle } from "./functions/wikipedia.js"
+import { getUrbanDictionary } from "./functions/urban.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -154,6 +156,20 @@ async function main() {
             case "wiki":
                 getWikiArticle(args).then((response) => {
                     chatClient.say(channel, response)
+                })
+                break
+            case "urban":
+                getUrbanDictionary(args).then((response) => {
+                    const definition = response.definition
+                        .replace(/\[/g, "")
+                        .replace(/\]/g, "")
+                        .replace(/\n/g, " ")
+                    const example = response.example
+                        .replace(/\[/g, "")
+                        .replace(/\]/g, "")
+                        .replace(/\n/g, " ")
+                    chatClient.say(channel, definition)
+                    sleep(500).then(() => chatClient.say(channel, example))
                 })
                 break
         }

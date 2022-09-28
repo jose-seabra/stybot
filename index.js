@@ -4,17 +4,9 @@ import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
 import { sleep } from "./helpers/helper.js"
+import { enabledChannels } from "./helpers/channels.js"
 
-// TODO move function imports to a single import file
-import { getCompliment } from "./functions/compliment.js"
-import { getRandomNumber } from "./functions/dice.js"
-import { getSR, playSlots } from "./functions/sr.js"
-import { pyramid } from "./functions/pyramid.js"
-import { getRandomJoke } from "./functions/joke.js"
-import { getTranslation, detectLanguage } from "./functions/translate.js"
-import { getWeather, getTimezone } from "./functions/weather.js"
-import { getWikiArticle } from "./functions/wikipedia.js"
-import { getUrbanDictionary } from "./functions/urban.js"
+import * as commands from "./commands/index.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -36,158 +28,32 @@ async function main() {
 
     const chatClient = new ChatClient({
         authProvider,
-        channels: ["stybot2", "stydevz"],
+        channels: enabledChannels,
     })
 
     await chatClient.connect()
 
     const PREFIX = "!"
-    let wait = false
 
     chatClient.onMessage((channel, user, message) => {
-        if (
-            (!message.startsWith(PREFIX) &&
-                !message.startsWith("stybot") &&
-                !message.startsWith("@stybot")) ||
-            wait
-        ) {
+        if (!message.startsWith(PREFIX)) {
             return
         }
 
         const [command, ...args] = message.slice(PREFIX.length).split(/ +/g)
-        // : message.slice(message.indexOf("stybot")).trim().split(/ +/g)
-        let output
 
-        switch (command) {
-            case "cheer":
-                chatClient.say(
-                    channel,
-                    `@${args[0] ?? user} ${getCompliment()} KPOPheart`
-                )
-                break
-            case "dice":
-                output = getRandomNumber(args[0])
-                chatClient.say(channel, `@${user} rolled a ${output}`)
-                break
-            case "badjoke":
-                getRandomJoke().then((output) => {
-                    if (output.type === "single") {
-                        chatClient.say(channel, `${output.joke}`)
-                    } else if (output.type === "twopart") {
-                        chatClient.say(channel, `${output.setup}`)
-                        sleep(5000).then(() =>
-                            chatClient.say(channel, `${output.delivery}`)
-                        )
-                    }
-                })
-                break
-            case "pyramid":
-                output = pyramid(args[0])
-                if (output === undefined) break
-                chatClient.say(channel, `${output}`)
-                break
-            case "sr":
-                output = getSR(channel)
-                chatClient.say(
-                    channel,
-                    `@${user} your SR is ${output.sr} ${output.emote}`
-                )
-                break
-            case "slots":
-                output = playSlots(channel)
-                chatClient.say(
-                    channel,
-                    `@${user} rolled | ${output[0]} | ${output[1]} | ${output[2]} | ${output[3]}`
-                )
-                break
-            case "translate":
-                let text
-                let targetLang
-                if (args[0].startsWith("to:")) {
-                    targetLang = args[0].substring(3)
-                    text = message.substring(command.length + 8)
-                } else {
-                    text = message.substring(command.length + 2)
-                }
-
-                detectLanguage(text)
-                    .then(async (originLang) => {
-                        if (originLang === 404) {
-                            chatClient.say(
-                                channel,
-                                `@${user} sorry I couldn't detect the language`
-                            )
-                            return
-                        }
-                        const response = await getTranslation(
-                            text,
-                            originLang,
-                            targetLang
-                        )
-                        chatClient.say(
-                            channel,
-                            `@${user} lang:${response.sourceLanguageCode} "${response.translatedText}"`
-                        )
-                    })
-                    .catch((error) => {})
-                break
-            case "weather":
-                getWeather(args).then((response) => {
-                    chatClient.say(
-                        channel,
-                        `@${user} current weather for ${response.data.location.name}/${response.data.location.country}.
-                        🕐 ${response.data.location.localtime}
-                        Condition: ${response.data.current.condition.text}
-                        🌡 ${response.data.current.temp_c}ºC/${response.data.current.temp_f}ºF feels like ${response.data.current.feelslike_c}ºC/${response.data.current.feelslike_f}ºF
-                        💨 ${response.data.current.wind_kph}KPH/${response.data.current.wind_mph}MPH
-                        🌧 ${response.data.current.precip_mm}mm
-                        `
-                    )
-                })
-                break
-            case "timezone":
-                getTimezone(args).then((response) => {
-                    chatClient.say(
-                        channel,
-                        `@${user} current time in ${response.data.location.name}/${response.data.location.country}: ${response.data.location.localtime}`
-                    )
-                })
-                break
-            case "wiki":
-                getWikiArticle(args).then((response) => {
-                    chatClient.say(channel, response)
-                })
-                break
-            case "urban":
-                getUrbanDictionary(args).then((response) => {
-                    const definition = response.definition
-                        .replace(/\[/g, "")
-                        .replace(/\]/g, "")
-                        .replace(/\n/g, " ")
-                    const example = response.example
-                        .replace(/\[/g, "")
-                        .replace(/\]/g, "")
-                        .replace(/\n/g, " ")
-                    chatClient.say(channel, definition)
-                    sleep(500).then(() => chatClient.say(channel, example))
-                })
-                break
+        if (commands[command]) {
+            commands[command](chatClient, channel, user, args)
         }
     })
 
-    // chatClient.onSub((channel, user) => {
-    //     chatClient.say(
-    //         channel,
-    //         `Thanks to @${user} for subscribing to the channel!`
-    //     )
-    // })
+    chatClient.onSub((channel, user) => {
+        commands.cheer(chatClient, channel, user, [user])
+    })
 
-    // chatClient.onResub((channel, user, subInfo) => {
-    //     chatClient.say(
-    //         channel,
-    //         `Thanks to @${user} for subscribing to the channel for a total of ${subInfo.months} months!`
-    //     )
-    // })
+    chatClient.onResub((channel, user, subInfo) => {
+        commands.cheer(chatClient, channel, user, [user])
+    })
 
     // const giftCounts = new Map()
     // chatClient.onCommunitySub((channel, user, subInfo) => {

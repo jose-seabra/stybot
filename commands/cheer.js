@@ -1,4 +1,4 @@
-const compliments = [
+const COMPLIMENTS = [
     "Hey there sexy!",
     "I hope your day is as nice as your face!",
     "Have you been working out?",
@@ -273,8 +273,15 @@ const compliments = [
     "You deserve credit for everything I have accomplished.",
 ]
 
-function getCompliment() {
-    return compliments[Math.floor(Math.random() * compliments.length)]
-}
+export function cheer(chatClient, channel, user, args) {
+    let target
+    if (args[0] && args[0].startsWith("@")) args[0] = args[0].slice(1)
+    args[0] ? (target = args[0]) : (target = user)
 
-export { getCompliment }
+    chatClient.say(
+        channel,
+        `@${target} ${
+            COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)]
+        }`
+    )
+}

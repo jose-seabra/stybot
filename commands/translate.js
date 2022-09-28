@@ -1,5 +1,35 @@
 import axios from "axios"
 
+export async function translate(chatClient, channel, user, args) {
+    let text
+    let targetLang
+    if (args[0].startsWith("to:")) {
+        text = args.slice(1).join(" ")
+        targetLang = args[0].substring(3)
+    } else {
+        text = args.join(" ")
+        targetLang = "en"
+    }
+
+    try {
+        const detectedLanguage = await detectLanguage(text)
+        console.log("detectedLanguage: ", detectedLanguage)
+        const translation = await getTranslation(
+            text,
+            detectedLanguage,
+            targetLang
+        )
+        console.log("translation: ", translation)
+
+        chatClient.say(
+            channel,
+            `@${user} lang:${detectedLanguage} "${translation}"`
+        )
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 async function detectLanguage(input) {
     return axios
         .post(
@@ -19,18 +49,14 @@ async function detectLanguage(input) {
                     return language.language
                 }
             }
-            return 404
+            throw new Error("Could not identify text language")
         })
         .catch((error) => {
-            console.log(error)
+            throw error
         })
 }
 
-async function getTranslation(
-    q,
-    sourceLanguageCode,
-    targetLanguageCode = "en"
-) {
+async function getTranslation(q, sourceLanguageCode, targetLanguageCode) {
     return axios
         .post(
             "https://cloud.yandex.com/api/translate/translate",
@@ -46,16 +72,9 @@ async function getTranslation(
             }
         )
         .then((response) => {
-            return (response = {
-                q,
-                sourceLanguageCode,
-                targetLanguageCode,
-                translatedText: response.data.translations[0].text,
-            })
+            return response.data.translations[0].text
         })
         .catch((error) => {
-            return error
+            throw error
         })
 }
-
-export { getTranslation, detectLanguage }

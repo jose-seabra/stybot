@@ -21,6 +21,7 @@ export async function weather(chatClient, channel, user, args) {
                 `
             )
             // feels like ${response.data.current.feelslike_c}ºC/${response.data.current.feelslike_f}ºF
+            // ${response.data.current.precip_mm !== 0 ? response.data.current.precip_mm + 'mm 🌧' : ''}
             return response
         })
         .catch((error) => {
@@ -33,148 +34,148 @@ function getWeatherEmoji(text) {
     switch (text) {
         case "Sunny":
             response = "☀️"
-            break;
+            break
         case "Clear":
             response = "🌑"
-            break;
+            break
         case "Partly cloudy":
             response = "⛅"
-            break;
+            break
         case "Cloudy":
             response = "☁️"
-            break;
+            break
         case "Overcast":
             response = "☁️"
-            break;
+            break
         case "Mist":
             response = "🌫️"
-            break;
+            break
         case "Patchy rain possible":
             response = "🌦️"
-            break;
+            break
         case "Patchy snow possible":
             response = "🌨️"
-            break;
+            break
         case "Patchy sleet possible":
             response = "🌨️"
-            break;
+            break
         case "Patchy freezing drizzle possible":
             response = "🌨️"
-            break;
+            break
         case "Thundery outbreaks possible":
             response = "⛈️"
-            break;
+            break
         case "Blowing snow":
             response = "🌨️"
-            break;
+            break
         case "Blizzard":
             response = "🌨️"
-            break;
+            break
         case "Fog":
             response = "🌫️"
-            break;
+            break
         case "Freezing fog":
             response = "🌫️"
-            break;
+            break
         case "Patchy light drizzle":
             response = "🌦️"
-            break;
+            break
         case "Light drizzle":
             response = "🌦️"
-            break;
+            break
         case "Freezing drizzle":
             response = "🌨️"
-            break;
+            break
         case "Heavy freezing drizzle":
             response = "🌨️"
-            break;
+            break
         case "Patchy light rain":
             response = "🌦️"
-            break;
+            break
         case "Light rain":
             response = "🌦️"
-            break;
+            break
         case "Moderate rain at times":
             response = "🌧️"
-            break;
+            break
         case "Moderate rain":
             response = "🌧️"
-            break;
+            break
         case "Heavy rain at times":
             response = "🌧️"
-            break;
+            break
         case "Heavy rain":
             response = "🌧️"
-            break;
+            break
         case "Light freezing rain":
             response = "🌨️"
-            break;
+            break
         case "Moderate or heavy freezing rain":
             response = "🌨️"
-            break;
+            break
         case "Light sleet":
             response = "🌨️"
-            break;
+            break
         case "Moderate or heavy sleet":
             response = "🌨️"
-            break;
+            break
         case "Patchy light snow":
             response = "🌨️"
-            break;
+            break
         case "Light snow":
             response = "🌨️"
-            break;
+            break
         case "Patchy moderate snow":
             response = "🌨️"
-            break;
+            break
         case "Moderate snow":
             response = "🌨️"
-            break;
+            break
         case "Patchy heavy snow":
             response = "🌨️"
-            break;
+            break
         case "Heavy snow":
             response = "🌨️"
-            break;
+            break
         case "Ice pellets":
             response = "🌨️"
-            break;
+            break
         case "Light rain shower":
             response = "🌧️"
-            break;
+            break
         case "Moderate or heavy rain shower":
             response = "🌧️"
-            break;
+            break
         case "Torrential rain shower":
             response = "🌧️"
-            break;
+            break
         case "Light sleet showers":
             response = "🌨️"
-            break;
+            break
         case "Moderate or heavy sleet showers":
             response = "🌨️"
-            break;
+            break
         case "Light snow showers":
             response = "🌨️"
-            break;
+            break
         case "Moderate or heavy snow showers":
             response = "🌨️"
-            break;
+            break
         case "Light showers of ice pellets":
             response = "🌨️"
-            break;
+            break
         case "Moderate or heavy showers of ice pellets":
             response = "🌨️"
-            break;
+            break
         case "Patchy light rain in area with thunder":
             response = "⛈️"
-            break;
+            break
         case "Moderate or heavy rain in area with thunder":
             response = "⛈️"
-            break;
+            break
         case "Patchy light snow in area with thunder":
             response = "⛈️"
-            break;
+            break
         default:
             response = "🔭"
     }

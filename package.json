@@ -3,15 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon index.js",
+    "prod": "NODE_ENV=production nodemon index.js",
+    "migrate": "knex migrate:latest --knexfile database/knexfile.js",
+    "seed": "knex seed:run --knexfile database/knexfile.js"
+  },
   "dependencies": {
     "@twurple/auth": "^5.2.0",
     "@twurple/chat": "^5.2.0",
     "@twurple/eventsub": "^5.2.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
+    "knex": "^2.3.0",
     "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
     "wtf_wikipedia": "^10.0.2"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.1.1"
   },
   "keywords": [],
   "author": "",

@@ -273,15 +273,30 @@ const COMPLIMENTS = [
     "You deserve credit for everything I have accomplished.",
 ]
 
-export function cheer(chatClient, channel, user, args) {
-    let target
-    if (args[0] && args[0].startsWith("@")) args[0] = args[0].slice(1)
-    args[0] ? (target = args[0]) : (target = user)
+const settings = {
+    enabled: true,
+    // permission: 50, // TODO
+    globalDelay: 0,
+    userDelay: 0,
+}
 
-    chatClient.say(
-        channel,
-        `@${target} ${
-            COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)]
-        }`
-    )
+let status = {}
+
+import { readyToRun } from "../helpers/commandHandler.js"
+
+export function cheer(chatClient, channel, user, args) {
+    readyToRun(settings, status, channel, user)
+        .then(() => {
+            let target
+            if (args[0] && args[0].startsWith("@")) args[0] = args[0].slice(1)
+            args[0] ? (target = args[0]) : (target = user)
+
+            chatClient.say(
+                channel,
+                `@${target} ${
+                    COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)]
+                }`
+            )
+        })
+        .catch((error) => {})
 }

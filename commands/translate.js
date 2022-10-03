@@ -1,33 +1,44 @@
+const settings = {
+    enabled: true,
+    // permission: 50, // TODO
+    globalDelay: 0,
+    userDelay: 0,
+}
+
+let status = {}
+
 import axios from "axios"
 
+import { readyToRun } from "../helpers/commandHandler.js"
+
 export async function translate(chatClient, channel, user, args) {
-    let text
-    let targetLang
-    if (args[0].startsWith("to:")) {
-        text = args.slice(1).join(" ")
-        targetLang = args[0].substring(3)
-    } else {
-        text = args.join(" ")
-        targetLang = "en"
-    }
+    readyToRun(settings, status, channel, user)
+        .then(async () => {
+            let text
+            let targetLang
+            if (args[0].startsWith("to:")) {
+                text = args.slice(1).join(" ")
+                targetLang = args[0].substring(3)
+            } else {
+                text = args.join(" ")
+                targetLang = "en"
+            }
 
-    try {
-        const detectedLanguage = await detectLanguage(text)
-        console.log("detectedLanguage: ", detectedLanguage)
-        const translation = await getTranslation(
-            text,
-            detectedLanguage,
-            targetLang
-        )
-        console.log("translation: ", translation)
+            try {
+                const detectedLanguage = await detectLanguage(text)
+                const translation = await getTranslation(
+                    text,
+                    detectedLanguage,
+                    targetLang
+                )
 
-        chatClient.say(
-            channel,
-            `@${user} lang:${detectedLanguage} "${translation}"`
-        )
-    } catch (error) {
-        console.log(error)
-    }
+                chatClient.say(
+                    channel,
+                    `@${user} lang:${detectedLanguage} "${translation}"`
+                )
+            } catch (error) {}
+        })
+        .catch((error) => {})
 }
 
 async function detectLanguage(input) {

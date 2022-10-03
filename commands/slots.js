@@ -18,46 +18,64 @@ const EMOTES = {
     },
 }
 
+const settings = {
+    enabled: true,
+    // permission: 50, // TODO
+    globalDelay: 0,
+    userDelay: 30000,
+}
+
+let status = {}
+
+import { readyToRun } from "../helpers/commandHandler.js"
+
 export function slots(chatClient, channel, user, args) {
-    const slotFaces = 3
-    let emoteset
-    let emotesArray = []
+    readyToRun(settings, status, channel, user)
+        .then(() => {
+            const slotFaces = 3
+            let emoteset
+            let emotesArray = []
 
-    channel = channel.substring(1)
+            channel = channel.substring(1)
 
-    EMOTES[channel]
-        ? (emoteset = EMOTES[channel])
-        : (emoteset = EMOTES["default"])
+            EMOTES[channel]
+                ? (emoteset = EMOTES[channel])
+                : (emoteset = EMOTES["default"])
 
-    let slotsArray = [
-        Math.floor(Math.random() * slotFaces) + 1,
-        Math.floor(Math.random() * slotFaces) + 1,
-        Math.floor(Math.random() * slotFaces) + 1,
-    ]
+            let slotsArray = [
+                Math.floor(Math.random() * slotFaces) + 1,
+                Math.floor(Math.random() * slotFaces) + 1,
+                Math.floor(Math.random() * slotFaces) + 1,
+            ]
 
-    for (let i = 0; i < slotsArray.length; i++) {
-        switch (slotsArray[i]) {
-            case 1:
-                emotesArray.push(emoteset.slot1)
-                break
-            case 2:
-                emotesArray.push(emoteset.slot2)
-                break
-            case 3:
-                emotesArray.push(emoteset.slot3)
-                break
-        }
-    }
+            for (let i = 0; i < slotsArray.length; i++) {
+                switch (slotsArray[i]) {
+                    case 1:
+                        emotesArray.push(emoteset.slot1)
+                        break
+                    case 2:
+                        emotesArray.push(emoteset.slot2)
+                        break
+                    case 3:
+                        emotesArray.push(emoteset.slot3)
+                        break
+                }
+            }
 
-    if (slotsArray[0] === slotsArray[1] && slotsArray[1] === slotsArray[2]) {
-        chatClient.say(
-            channel,
-            `@${user} rolled | ${emotesArray[0]} | ${emotesArray[1]} | ${emotesArray[2]} | And won ${emoteset.slotsWin}`
-        )
-    } else {
-        chatClient.say(
-            channel,
-            `@${user} rolled | ${emotesArray[0]} | ${emotesArray[1]} | ${emotesArray[2]} | Better luck next time ${emoteset.slotsLoss}`
-        )
-    }
+            if (
+                slotsArray[0] === slotsArray[1] &&
+                slotsArray[1] === slotsArray[2]
+            ) {
+                chatClient.say(
+                    channel,
+                    `@${user} rolled | ${emotesArray[0]} | ${emotesArray[1]} | ${emotesArray[2]} | And won ${emoteset.slotsWin}`
+                )
+            } else {
+                chatClient.say(
+                    channel,
+                    `@${user} rolled | ${emotesArray[0]} | ${emotesArray[1]} | ${emotesArray[2]} | Better luck next time ${emoteset.slotsLoss}`
+                )
+            }
+        })
+        .catch((error) => {})
 }

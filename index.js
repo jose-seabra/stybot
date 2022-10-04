@@ -3,10 +3,14 @@ import { RefreshingAuthProvider } from "@twurple/auth"
 import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
-import { sleep } from "./helpers/helper.js"
 import { enabledChannels } from "./helpers/channels.js"
 
 import * as commands from "./commands/index.js"
+import {
+    status as triviaStatus,
+    questionTimeout as triviaTimeout,
+    optionsTimeout as triviaOptionsTimeout,
+} from "./commands/trivia.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -36,6 +40,24 @@ async function main() {
     const PREFIX = "!"
 
     chatClient.onMessage((channel, user, message) => {
+        if (triviaStatus[channel]?.ongoing) {
+            if (
+                triviaStatus[channel].correct_answer.toUpperCase() ===
+                message.toUpperCase()
+            ) {
+                chatClient.say(
+                    channel,
+                    `@${user} got it! Correct answer is ${triviaStatus[channel].correct_answer}`
+                )
+                triviaStatus[channel] = {
+                    ready: true,
+                    delayUsers: [],
+                }
+                clearTimeout(triviaTimeout[channel])
+                clearTimeout(triviaOptionsTimeout[channel])
+            }
+        }
+
         if (!message.startsWith(PREFIX)) {
             return
         }

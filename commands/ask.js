@@ -1,23 +1,24 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
-    globalDelay: 60000,
-    userDelay: 120000,
+    permission: permissions.VIEWER,
+    globalDelay: 5000,
+    userDelay: 60000,
 }
 
 let status = {}
 
 import { readyToRun } from "../helpers/commandHandler.js"
 import { Configuration, OpenAIApi } from "openai"
-import axios from "axios"
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 })
 const openai = new OpenAIApi(configuration)
 
-export async function ask(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function ask(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const q = args.join(" ")
 

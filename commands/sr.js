@@ -18,19 +18,21 @@ const EMOTES = {
     },
 }
 
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.VIEWER,
     globalDelay: 0,
-    userDelay: 30000,
+    userDelay: 120000,
 }
 
 let status = {}
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export function sr(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export function sr(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(() => {
             const sr = Math.floor(Math.random() * 4850) + 1
             let emote

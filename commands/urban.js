@@ -1,8 +1,10 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.VIEWER,
     globalDelay: 0,
-    userDelay: 5000,
+    userDelay: 15000,
 }
 
 let status = {}
@@ -14,8 +16,8 @@ import { readyToRun } from "../helpers/commandHandler.js"
 
 const key = process.env.RAPIDAPI_KEY
 
-export async function urban(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function urban(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const q = args.join(" ")
 

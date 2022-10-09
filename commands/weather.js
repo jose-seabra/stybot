@@ -1,8 +1,10 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
-    globalDelay: 30000,
-    userDelay: 0,
+    permission: permissions.VIEWER,
+    globalDelay: 1000,
+    userDelay: 30000,
 }
 
 let status = {}
@@ -11,32 +13,39 @@ import axios from "axios"
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export async function weather(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function weather(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const key = process.env.WEATHER_API_KEY
 
             const q = args.join(" ")
 
             try {
-                const response = await axios
-                    .get(
-                        `https://api.weatherapi.com/v1/current.json?key=${key}&q=${q}`
-                    )
+                const response = await axios.get(
+                    `https://api.weatherapi.com/v1/current.json?key=${key}&q=${q}`
+                )
                 const weather_emoji = getWeatherEmoji(
                     response.data.current.condition.text
                 )
 
                 chatClient.say(
                     channel,
-                    `@${user} current weather for ${response.data.location.name}/${response.data.location.country}:
+                    `@${user} current weather for ${
+                        response.data.location.name
+                    }/${response.data.location.country}:
                     ${response.data.location.localtime.substring(11)} 🕐
                     ${response.data.current.condition.text} ${weather_emoji}
-                    ${response.data.current.temp_c}ºC/${response.data.current.temp_f}ºF 🌡
-                    ${response.data.current.wind_kph}KPH/${response.data.current.wind_mph}MPH 💨
-                    ${response.data.current.precip_mm !== 0
-                        ? response.data.current.precip_mm + "mm 🌧"
-                        : ""}
+                    ${response.data.current.temp_c}ºC/${
+                        response.data.current.temp_f
+                    }ºF 🌡
+                    ${response.data.current.wind_kph}KPH/${
+                        response.data.current.wind_mph
+                    }MPH 💨
+                    ${
+                        response.data.current.precip_mm !== 0
+                            ? response.data.current.precip_mm + "mm 🌧"
+                            : ""
+                    }
                     `
                 )
                 return response

@@ -3,7 +3,7 @@ import { RefreshingAuthProvider } from "@twurple/auth"
 import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
-import { enabledChannels } from "./helpers/channels.js"
+import { enabledChannels } from "./helpers/constants.js"
 
 import * as commands from "./commands/index.js"
 import {
@@ -39,11 +39,11 @@ async function main() {
 
     const PREFIX = "!"
 
-    chatClient.onMessage((channel, user, message) => {
+    chatClient.onMessage(async (channel, user, text, msg) => {
         if (triviaStatus[channel]?.ongoing) {
             if (
                 triviaStatus[channel].correct_answer.toUpperCase() ===
-                message.toUpperCase()
+                text.toUpperCase()
             ) {
                 chatClient.say(
                     channel,
@@ -58,14 +58,14 @@ async function main() {
             }
         }
 
-        if (!message.startsWith(PREFIX)) {
+        if (!text.startsWith(PREFIX)) {
             return
         }
 
-        const [command, ...args] = message.slice(PREFIX.length).split(/ +/g)
+        const [command, ...args] = text.slice(PREFIX.length).split(/ +/g)
 
         if (commands[command]) {
-            commands[command](chatClient, channel, user, args)
+            commands[command](chatClient, channel, user, msg, args)
         }
     })
 

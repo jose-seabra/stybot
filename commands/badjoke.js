@@ -1,8 +1,10 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
-    globalDelay: 30000,
-    userDelay: 0,
+    permission: permissions.VIEWER,
+    globalDelay: 1000,
+    userDelay: 60000,
 }
 
 let status = {}
@@ -12,8 +14,8 @@ import axios from "axios"
 import { sleep } from "../helpers/helper.js"
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export async function badjoke(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function badjoke(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const joke = await fetchJoke()
 

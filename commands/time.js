@@ -1,8 +1,10 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.VIEWER,
     globalDelay: 0,
-    userDelay: 0,
+    userDelay: 10000,
 }
 
 let status = {}
@@ -11,8 +13,8 @@ import axios from "axios"
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export async function time(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function time(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const key = process.env.WEATHER_API_KEY
 

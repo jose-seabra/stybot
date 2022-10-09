@@ -1,6 +1,8 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.VIEWER,
     globalDelay: 0,
     userDelay: 5000,
 }
@@ -11,8 +13,8 @@ import axios from "axios"
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export async function excuse(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function excuse(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const excuse = await fetchExcuse()
             chatClient.say(channel, `${excuse}`)

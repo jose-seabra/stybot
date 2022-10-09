@@ -1,6 +1,8 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.MOD,
     globalDelay: 0,
     userDelay: 0,
     optionsTimeoutDuration: 5000,
@@ -15,8 +17,8 @@ import axios from "axios"
 import { shuffleArray, sleep } from "../helpers/helper.js"
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export function trivia(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export function trivia(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             if (status[channel].ongoing) {
                 chatClient.say(
@@ -81,7 +83,6 @@ export function trivia(chatClient, channel, user, args) {
                             `${shuffleArray(allAnswers).join(" | ")}`
                         )
                     }, settings.optionsTimeoutDuration)
-
                 } else if (typeString === "boolean") {
                     chatClient.say(
                         channel,

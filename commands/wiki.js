@@ -1,6 +1,8 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.VIEWER,
     globalDelay: 30000,
     userDelay: 120000,
 }
@@ -11,8 +13,8 @@ import wtf from "wtf_wikipedia"
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export async function wiki(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function wiki(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const q = args.join(" ")
 

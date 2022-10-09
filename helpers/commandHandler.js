@@ -1,6 +1,11 @@
-export function readyToRun(settings, status, channel, user) {
+import { permissions } from "../helpers/constants.js"
+
+export function readyToRun(settings, status, channel, user, msg) {
     return new Promise((resolve, reject) => {
         if (!settings.enabled) return reject("function is disabled")
+
+        if (settings.permission > userPermission(msg))
+            return reject("user does not have permission")
 
         // if status is empty, create a new object for the channel
         if (!status[channel]) {
@@ -37,4 +42,14 @@ export function readyToRun(settings, status, channel, user) {
 
         resolve(true)
     })
+}
+
+function userPermission(msg) {
+    const { userId, isBroadcaster, isMod, isVip, isSubscriber } = msg.userInfo
+    if (userId === process.env.TWITCH_UID) return permissions.SUPERUSER
+    if (isBroadcaster) return permissions.BROADCASTER
+    if (isMod) return permissions.MOD
+    if (isVip) return permissions.VIP
+    if (isSubscriber) return permissions.SUBSCRIBER
+    return permissions.VIEWER
 }

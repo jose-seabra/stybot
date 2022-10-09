@@ -273,9 +273,11 @@ const COMPLIMENTS = [
     "You deserve credit for everything I have accomplished.",
 ]
 
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
+    permission: permissions.VIEWER,
     globalDelay: 0,
     userDelay: 0,
 }
@@ -284,8 +286,8 @@ let status = {}
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export function cheer(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export function cheer(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(() => {
             let target
             if (args[0] && args[0].startsWith("@")) args[0] = args[0].slice(1)

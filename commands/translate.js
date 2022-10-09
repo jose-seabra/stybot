@@ -1,7 +1,9 @@
+import { permissions } from "../helpers/constants.js"
+
 const settings = {
     enabled: true,
-    // permission: 50, // TODO
-    globalDelay: 0,
+    permission: permissions.VIEWER,
+    globalDelay: 2000,
     userDelay: 0,
 }
 
@@ -11,8 +13,8 @@ import axios from "axios"
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export async function translate(chatClient, channel, user, args) {
-    readyToRun(settings, status, channel, user)
+export async function translate(chatClient, channel, user, msg, args) {
+    readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             let text
             let targetLang

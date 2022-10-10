@@ -32,19 +32,44 @@ function restart(chatClient, channel, user, msg, args) {
             switch (option) {
                 case "-v":
                     errorMessage = `${error} monkaStop`
-                    break;
-            
+                    break
+
                 default:
                     errorMessage = `something went wrong monkaStop`
-                    break;
+                    break
             }
-            
+
             chatClient.say(channel, errorMessage)
             return
         }
     })
 }
 
+function update(chatClient, channel, user, msg, args) {
+    chatClient.say(channel, `updating borpaSpin`)
+    const [command, option] = args
+
+    exec("git pull", (error, stdout, stderr) => {
+        if (error || stderr) {
+            let errorMessage
+            switch (option) {
+                case "-v":
+                    errorMessage = `${error} monkaStop`
+                    break
+
+                default:
+                    errorMessage = `something went wrong monkaStop`
+                    break
+            }
+
+            chatClient.say(channel, errorMessage)
+            return
+        }
+        chatClient.say(channel, `${stdout}`)
+    })
+}
+
 const callables = {
-    restart
+    restart,
+    update,
 }

@@ -5,7 +5,7 @@ const settings = {
     permission: permissions.MOD,
     globalDelay: 0,
     userDelay: 0,
-    optionsTimeoutDuration: 5000,
+    optionsTimeoutDuration: 6000,
     questionTimeoutDuration: 60000,
 }
 
@@ -14,7 +14,7 @@ export let optionsTimeout = {}
 export let questionTimeout = {}
 
 import axios from "axios"
-import { shuffleArray, sleep } from "../helpers/helper.js"
+import { shuffleArray } from "../helpers/helper.js"
 import { readyToRun } from "../helpers/commandHandler.js"
 
 export function trivia(chatClient, channel, user, msg, args) {

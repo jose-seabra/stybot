@@ -3,8 +3,8 @@ import { permissions } from "../helpers/constants.js"
 const settings = {
     enabled: true,
     permission: permissions.VIEWER,
-    globalDelay: 5000,
-    userDelay: 60000,
+    globalDelay: 120000,
+    userDelay: 300000,
 }
 
 let status = {}

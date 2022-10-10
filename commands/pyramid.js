@@ -4,7 +4,7 @@ const settings = {
     enabled: true,
     permission: permissions.VIEWER,
     globalDelay: 5000,
-    userDelay: 30000,
+    userDelay: 60000,
 }
 
 let status = {}

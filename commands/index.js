@@ -1,3 +1,4 @@
+export { sb } from "./admin.js"
 export { ask } from "./ask.js"
 export { badjoke } from "./badjoke.js"
 export { cheer } from "./cheer.js"

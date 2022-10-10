@@ -1,24 +1,4 @@
-const EMOTES = {
-    default: {
-        slot1: "OSFrog",
-        slot2: "OhMyDog ",
-        slot3: "CoolCat",
-        slotsWin: "bttvNice",
-        slotsLoss: "Jebasted",
-        dice1: "PoroSad",
-        dice2: "DansGame",
-        dice3: "NinjaGrumpy",
-        dice4: "CaitlynS",
-        dice5: "GingerPower",
-        dice6: "MVGame",
-        dice7: "PotFriend",
-        dice8: "Poooound",
-        dice9: "PogChamp",
-        dice10: "PogBones",
-    },
-}
-
-import { permissions } from "../helpers/constants.js"
+import { permissions, emotes } from "../helpers/constants.js"
 
 const settings = {
     enabled: true,
@@ -40,9 +20,9 @@ export function slots(chatClient, channel, user, msg, args) {
 
             channel = channel.substring(1)
 
-            EMOTES[channel]
-                ? (emoteset = EMOTES[channel])
-                : (emoteset = EMOTES["default"])
+            emotes[channel]
+                ? (emoteset = emotes[channel])
+                : (emoteset = emotes["default"])
 
             let slotsArray = [
                 Math.floor(Math.random() * slotFaces) + 1,

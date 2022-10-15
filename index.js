@@ -39,23 +39,22 @@ async function main() {
 
     const PREFIX = "!"
 
-    chatClient.onMessage(async (channel, user, text, msg) => {
-        if (triviaStatus[channel]?.ongoing) {
-            if (
-                triviaStatus[channel].correct_answer.toUpperCase() ===
+    chatClient.onMessage((channel, user, text, msg) => {
+        if (
+            triviaStatus[channel]?.ongoing &&
+            triviaStatus[channel].correct_answer.toUpperCase() ===
                 text.toUpperCase()
-            ) {
-                chatClient.say(
-                    channel,
-                    `@${user} got it! Correct answer is ${triviaStatus[channel].correct_answer}`
-                )
-                triviaStatus[channel] = {
-                    ready: true,
-                    delayUsers: [],
-                }
-                clearTimeout(triviaTimeout[channel])
-                clearTimeout(triviaOptionsTimeout[channel])
+        ) {
+            chatClient.say(
+                channel,
+                `@${user} got it! Correct answer is ${triviaStatus[channel].correct_answer}`
+            )
+            triviaStatus[channel] = {
+                ready: true,
+                delayUsers: [],
             }
+            clearTimeout(triviaTimeout[channel])
+            clearTimeout(triviaOptionsTimeout[channel])
         }
 
         if (!text.startsWith(PREFIX)) {

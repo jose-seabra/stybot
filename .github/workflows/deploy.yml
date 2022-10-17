@@ -8,12 +8,16 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'web'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: '**/yarn.lock'
       - run: yarn install --frozen-lockfile
 
       - name: Build

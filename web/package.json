@@ -1,0 +1,25 @@
+{
+  "name": "gst",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jose-seabra/stybot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jose-seabra/stybot/issues"
+  },
+  "homepage": "https://github.com/jose-seabra/stybot#readme",
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.19",
+    "vue": "^3.2.40"
+  }
+}

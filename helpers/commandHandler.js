@@ -24,7 +24,7 @@ export function readyToRun(settings, status, channel, user, msg) {
             status[channel].ready = false
             setTimeout(() => {
                 status[channel].ready = true
-            }, settings.globalDelay)
+            }, convertSecondsToMiliseconds(settings.globalDelay))
         }
 
         if (settings?.userDelay > 0) {
@@ -36,7 +36,7 @@ export function readyToRun(settings, status, channel, user, msg) {
                     if (index > -1) {
                         status[channel].delayUsers.splice(index, 1)
                     }
-                }, settings.userDelay)
+                }, convertSecondsToMiliseconds(settings.userDelay))
             }
         }
 
@@ -52,4 +52,8 @@ function userPermission(msg) {
     if (isVip) return permissions.VIP
     if (isSubscriber) return permissions.SUBSCRIBER
     return permissions.VIEWER
+}
+
+function convertSecondsToMiliseconds(seconds) {
+    return seconds * 1000
 }

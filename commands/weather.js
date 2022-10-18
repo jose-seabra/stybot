@@ -1,11 +1,4 @@
-import { permissions } from "../helpers/constants.js"
-
-const settings = {
-    enabled: true,
-    permission: permissions.VIEWER,
-    globalDelay: 1000,
-    userDelay: 30000,
-}
+import { settings } from "../settings/weather.js"
 
 let status = {}
 

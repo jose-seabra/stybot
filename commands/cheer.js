@@ -272,15 +272,7 @@ const COMPLIMENTS = [
     "You're so kind.",
     "You deserve credit for everything I have accomplished.",
 ]
-
-import { permissions } from "../helpers/constants.js"
-
-const settings = {
-    enabled: true,
-    permission: permissions.VIEWER,
-    globalDelay: 0,
-    userDelay: 0,
-}
+import { settings } from "../settings/cheer.js"
 
 let status = {}
 

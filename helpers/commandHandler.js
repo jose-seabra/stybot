@@ -1,5 +1,7 @@
 import { permissions } from "../helpers/constants.js"
 
+import { convertSecondsToMiliseconds } from "../helpers/helper.js"
+
 export function readyToRun(settings, status, channel, user, msg) {
     return new Promise((resolve, reject) => {
         if (!settings.enabled) return reject("function is disabled")
@@ -24,7 +26,7 @@ export function readyToRun(settings, status, channel, user, msg) {
             status[channel].ready = false
             setTimeout(() => {
                 status[channel].ready = true
-            }, settings.globalDelay)
+            }, convertSecondsToMiliseconds(settings.globalDelay))
         }
 
         if (settings?.userDelay > 0) {
@@ -36,7 +38,7 @@ export function readyToRun(settings, status, channel, user, msg) {
                     if (index > -1) {
                         status[channel].delayUsers.splice(index, 1)
                     }
-                }, settings.userDelay)
+                }, convertSecondsToMiliseconds(settings.userDelay))
             }
         }
 

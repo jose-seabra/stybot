@@ -1,20 +1,11 @@
-import { permissions } from "../helpers/constants.js"
-
-const settings = {
-    enabled: true,
-    permission: permissions.MOD,
-    globalDelay: 0,
-    userDelay: 0,
-    optionsTimeoutDuration: 6000,
-    questionTimeoutDuration: 60000,
-}
+import { settings } from "../settings/trivia.js"
 
 export let status = {}
 export let optionsTimeout = {}
 export let questionTimeout = {}
 
 import axios from "axios"
-import { shuffleArray } from "../helpers/helper.js"
+import { shuffleArray, convertSecondsToMiliseconds } from "../helpers/helper.js"
 import { readyToRun } from "../helpers/commandHandler.js"
 
 export function trivia(chatClient, channel, user, msg, args) {
@@ -82,7 +73,7 @@ export function trivia(chatClient, channel, user, msg, args) {
                             channel,
                             `${shuffleArray(allAnswers).join(" | ")}`
                         )
-                    }, settings.optionsTimeoutDuration)
+                    }, convertSecondsToMiliseconds(settings.optionsTimeoutDuration))
                 } else if (typeString === "boolean") {
                     chatClient.say(
                         channel,
@@ -109,11 +100,10 @@ export function trivia(chatClient, channel, user, msg, args) {
                     ),
                         ((status[channel].correct_answer = null),
                         (status[channel].ongoing = false))
-                }, settings.questionTimeoutDuration)
+                }, convertSecondsToMiliseconds(settings.questionTimeoutDuration))
             } catch (error) {}
         })
         .catch((error) => {})
-    // })
 }
 
 function categoryEmoji(category) {

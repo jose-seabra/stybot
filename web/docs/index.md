@@ -7,10 +7,10 @@ hero:
   # tagline: Lorem ipsum...
   image:
     src: /stybot.png
-    alt: VitePress
+    alt: Stybot
   actions:
     - theme: brand
-      text: Get Started
+      text: Check docs
       link: /what-is-stybot
     - theme: alt
       text: View on GitHub
@@ -27,3 +27,7 @@ features:
     title: Open source
     details: Open to contribute or extend your own
 ---
+
+<script setup>
+  import heroImage from "./stybot.png"
+</script>

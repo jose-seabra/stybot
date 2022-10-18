@@ -17,3 +17,7 @@ export function shuffleArray(array) {
     }
     return array
 }
+
+export function convertSecondsToMiliseconds(seconds) {
+    return seconds * 1000
+}

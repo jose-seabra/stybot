@@ -1,12 +1,5 @@
-import { permissions } from "../helpers/constants.js"
 import { exec } from "child_process"
-
-const settings = {
-    enabled: true,
-    permission: permissions.SUPERUSER,
-    globalDelay: 0,
-    userDelay: 0,
-}
+import { settings } from "../settings/admin.js"
 
 let status = {}
 

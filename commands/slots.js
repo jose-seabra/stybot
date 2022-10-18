@@ -1,3 +1,4 @@
+import { emotes } from "../helpers/constants.js"
 import { settings } from "../settings/slots.js"
 
 let status = {}

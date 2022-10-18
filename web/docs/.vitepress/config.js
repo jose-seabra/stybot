@@ -24,6 +24,7 @@ export default defineConfig({
                     { text: "excuse", link: "/excuse" },
                     { text: "pyramid", link: "/pyramid" },
                     { text: "slots", link: "/slots" },
+                    { text: "sb", link: "/sb" },
                     { text: "sr", link: "/sr" },
                     { text: "time", link: "/time" },
                     { text: "translate", link: "/translate" },

@@ -1,5 +1,7 @@
 import { permissions } from "../helpers/constants.js"
 
+import { convertSecondsToMiliseconds } from "../helpers/helper.js"
+
 export function readyToRun(settings, status, channel, user, msg) {
     return new Promise((resolve, reject) => {
         if (!settings.enabled) return reject("function is disabled")
@@ -52,8 +54,4 @@ function userPermission(msg) {
     if (isVip) return permissions.VIP
     if (isSubscriber) return permissions.SUBSCRIBER
     return permissions.VIEWER
-}
-
-function convertSecondsToMiliseconds(seconds) {
-    return seconds * 1000
 }

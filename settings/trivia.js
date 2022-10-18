@@ -6,6 +6,6 @@ export const settings = {
     permission: permissions.MOD,
     globalDelay: 0,
     userDelay: 0,
-    optionsTimeoutDuration: 6000,
-    questionTimeoutDuration: 60000,
+    optionsTimeoutDuration: 6,
+    questionTimeoutDuration: 60,
 }

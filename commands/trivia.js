@@ -5,7 +5,7 @@ export let optionsTimeout = {}
 export let questionTimeout = {}
 
 import axios from "axios"
-import { shuffleArray } from "../helpers/helper.js"
+import { shuffleArray, convertSecondsToMiliseconds } from "../helpers/helper.js"
 import { readyToRun } from "../helpers/commandHandler.js"
 
 export function trivia(chatClient, channel, user, msg, args) {
@@ -73,7 +73,7 @@ export function trivia(chatClient, channel, user, msg, args) {
                             channel,
                             `${shuffleArray(allAnswers).join(" | ")}`
                         )
-                    }, settings.optionsTimeoutDuration)
+                    }, convertSecondsToMiliseconds(settings.optionsTimeoutDuration))
                 } else if (typeString === "boolean") {
                     chatClient.say(
                         channel,
@@ -100,11 +100,10 @@ export function trivia(chatClient, channel, user, msg, args) {
                     ),
                         ((status[channel].correct_answer = null),
                         (status[channel].ongoing = false))
-                }, settings.questionTimeoutDuration)
+                }, convertSecondsToMiliseconds(settings.questionTimeoutDuration))
             } catch (error) {}
         })
         .catch((error) => {})
-    // })
 }
 
 function categoryEmoji(category) {

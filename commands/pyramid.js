@@ -1,11 +1,4 @@
-import { permissions } from "../helpers/constants.js"
-
-const settings = {
-    enabled: true,
-    permission: permissions.VIEWER,
-    globalDelay: 5000,
-    userDelay: 60000,
-}
+import { settings } from "../settings/pyramid.js"
 
 let status = {}
 

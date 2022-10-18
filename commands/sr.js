@@ -1,11 +1,5 @@
-import { permissions, emotes } from "../helpers/constants.js"
-
-const settings = {
-    enabled: true,
-    permission: permissions.VIEWER,
-    globalDelay: 0,
-    userDelay: 120000,
-}
+import { emotes } from "../helpers/constants.js"
+import { settings } from "../settings/sr.js"
 
 let status = {}
 

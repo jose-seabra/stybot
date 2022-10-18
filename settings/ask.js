@@ -1,9 +1,9 @@
 import { permissions } from "../helpers/constants.js"
 
 export const settings = {
-    description: "Ask Stybot a question and it will try to answer it",
+    description: "Ask a question and Stybot will try to answer it either with a truthfull answer or with sarcasm.",
     enabled: true,
     permission: permissions.VIEWER,
-    globalDelay: 120000,
-    userDelay: 300000,
+    globalDelay: 120,
+    userDelay: 300,
 }

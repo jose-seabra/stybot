@@ -1,13 +1,4 @@
-import { permissions } from "../helpers/constants.js"
-
-const settings = {
-    enabled: true,
-    permission: permissions.MOD,
-    globalDelay: 0,
-    userDelay: 0,
-    optionsTimeoutDuration: 6000,
-    questionTimeoutDuration: 60000,
-}
+import { settings } from "../settings/trivia.js"
 
 export let status = {}
 export let optionsTimeout = {}

@@ -27,7 +27,3 @@ features:
     title: Open source
     details: Open to contribute or extend your own
 ---
-
-<script setup>
-  import heroImage from "./stybot.png"
-</script>

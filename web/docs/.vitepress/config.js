@@ -21,6 +21,7 @@ export default defineConfig({
                     { text: "ask", link: "/ask" },
                     { text: "badjoke", link: "/badjoke" },
                     { text: "cheer", link: "/cheer" },
+                    { text: "commands", link: "/commands" },
                     { text: "dice", link: "/dice" },
                     { text: "excuse", link: "/excuse" },
                     { text: "pyramid", link: "/pyramid" },

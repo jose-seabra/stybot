@@ -1,10 +1,10 @@
-import { settings } from "../settings/commands.js"
+import { settings } from "../settings/sbcommands.js"
 
 let status = {}
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export function commands(chatClient, channel, user, msg, args) {
+export function sbcommands(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(() => {
             chatClient.say(

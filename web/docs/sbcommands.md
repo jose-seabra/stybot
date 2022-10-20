@@ -1,7 +1,7 @@
 # cheer
 
 <script setup>
-import { settings as s } from "../../settings/commands.js"
+import { settings as s } from "../../settings/sbcommands.js"
 const { description, ...settings } = s
 </script>
 
@@ -9,7 +9,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!commands`
+`!sbcommands`
 
 > @{user} a full list of commands can be found at https://tinyurl.com/stybot 
 

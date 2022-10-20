@@ -6,12 +6,13 @@ export default defineConfig({
     base: "/stybot/",
     cleanUrls: "with-subfolders",
     themeConfig: {
+        socialLinks: [
+            { icon: "github", link: "https://github.com/jose-seabra/stybot" },
+        ],
         sidebar: [
             {
                 text: "Introduction",
-                items: [
-                    { text: "What is Stybot?", link: "/what-is-stybot" },
-                ],
+                items: [{ text: "What is Stybot?", link: "/what-is-stybot" }],
             },
             {
                 text: "Commands",
@@ -36,9 +37,7 @@ export default defineConfig({
             },
             {
                 text: "Misc",
-                items: [
-                    { text: "Permissions", link: "/permissions" },
-                ],
+                items: [{ text: "Permissions", link: "/permissions" }],
             },
         ],
     },

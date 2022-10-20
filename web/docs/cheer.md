@@ -7,17 +7,17 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!cheer`
+`!cheer`
 
 > @{user} You have the biggest heart. 
 
-Input: `!cheer @someone`
+`!cheer @someone`
 
 > @{someone} You are the reason I smile every day.
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

@@ -7,13 +7,13 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!sb restart`
+`!sb restart`
 
-> restarting.
+> <div style="display: flex;">restarting&nbsp<img src="https://cdn.7tv.app/emote/60abf6a14ef7db1ec1dff6ed/1x"></div>
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

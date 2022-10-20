@@ -7,9 +7,9 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!urban no shot`
+`!urban no shot`
 
 > Indicating that an action has no chance in happening whatsoever.
 
@@ -17,5 +17,5 @@ Input: `!urban no shot`
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

@@ -7,19 +7,19 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!trivia`
+`!trivia`
 
 > Entertainment: Film 🎬 What was Dorothy's surname in 'The Wizard Of Oz'?
 
 > Perkins | Day | Parker | Gale
 
-Input: Gale
+Gale
 
 > @{user} got it! Correct answer is Gale 
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

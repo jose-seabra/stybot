@@ -7,13 +7,13 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!slots`
+`!slots`
 
-> @{user} rolled | Kappa | Kappa | Kappa | And won PogChamp
+> <div style="display: flex;">@{user} rolled |&nbsp<img src="https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0">&nbsp|&nbsp<img src="https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0">&nbsp|&nbsp<img src="https://static-cdn.jtvnw.net/emoticons/v2/25/default/dark/1.0">&nbsp| And won&nbsp<img src="https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/1.0"></div>
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

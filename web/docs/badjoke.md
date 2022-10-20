@@ -7,13 +7,13 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!badjoke`
+`!badjoke`
 
 > Relationship Status: just tried to reach for my dog's paw and he pulled it away so I pretended I was reaching for the remote.
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

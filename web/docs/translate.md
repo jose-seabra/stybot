@@ -7,17 +7,17 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!translate おはよう！`
+`!translate おはよう！`
 
 > @{user} lang:ja "Good morning!"
 
-Input: `!translate to:es hi, how are you? `
+`!translate to:es hi, how are you? `
 
 > @{user} lang:en "Hola, ¿qué tal?"
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

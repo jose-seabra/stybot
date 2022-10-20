@@ -7,13 +7,13 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!excuse`
+`!excuse`
 
 > My brother can't pick up my in-laws at the airport, so I'll have to go in his place. 
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

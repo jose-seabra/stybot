@@ -7,13 +7,13 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!time andorra`
+`!time andorra`
 
 > @{user} current time in Andorra La Vella/Andorra: 2022-10-18 19:03 
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

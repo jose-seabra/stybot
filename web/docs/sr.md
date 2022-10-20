@@ -7,13 +7,13 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!sr`
+`!sr`
 
-> @{user} your SR is 4610 PogChamp 
+> <div style="display: flex;">@{user} your SR is 4610&nbsp<img src="https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/1.0"></div>
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

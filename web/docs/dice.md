@@ -7,17 +7,17 @@ const { description, ...settings } = s
 
 {{ description }}
 
-## Usage example
+## Usage
 
-Input: `!dice`
+`!dice`
 
-> @\{user\} rolled a 4
+> @{user} rolled a 4
 
-Input: `!dice 100`
+`!dice 100`
 
-> @\{user\} rolled a 76
+> @{user} rolled a 76
 
 ## Settings
 <div v-for="(setting, index) in settings">
-{{ index }}: <code>{{ setting }}</code>
+{{ index }} - <code>{{ setting }}</code>
 </div>

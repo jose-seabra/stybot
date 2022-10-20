@@ -3,6 +3,8 @@
 <script setup>
 import { settings as s } from "../../settings/admin.js"
 const { description, ...settings } = s
+import Emote from "./components/Emote.vue"
+const emote = "https://cdn.7tv.app/emote/60abf6a14ef7db1ec1dff6ed/1x"
 </script>
 
 {{ description }}
@@ -11,7 +13,7 @@ const { description, ...settings } = s
 
 `!sb restart`
 
-> <div style="display: flex;">restarting&nbsp<img src="https://cdn.7tv.app/emote/60abf6a14ef7db1ec1dff6ed/1x"></div>
+> <span style="display: flex;">restarting <Emote :url=emote /></span>
 
 ## Settings
 <div v-for="(setting, index) in settings">

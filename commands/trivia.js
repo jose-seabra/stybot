@@ -14,9 +14,14 @@ export function trivia(chatClient, channel, user, msg, args) {
             if (status[channel].ongoing) {
                 chatClient.say(
                     channel,
-                    `@${user} there is already a trivia running!`
+                    `@${user} there is a trivia already running!`
                 )
                 return
+            }
+
+            status[channel] = {
+                ...status[channel],
+                ongoing: true,
             }
 
             const options = {
@@ -90,7 +95,6 @@ export function trivia(chatClient, channel, user, msg, args) {
                 status[channel] = {
                     ...status[channel],
                     correct_answer: correct_answerString,
-                    ongoing: true,
                 }
 
                 questionTimeout[channel] = setTimeout(() => {

@@ -42,6 +42,7 @@ async function main() {
     chatClient.onMessage((channel, user, text, msg) => {
         if (
             triviaStatus[channel]?.ongoing &&
+            triviaStatus[channel].correct_answer &&
             triviaStatus[channel].correct_answer.toUpperCase() ===
                 text.toUpperCase()
         ) {

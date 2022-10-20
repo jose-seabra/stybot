@@ -1,0 +1,1 @@
+import{_,o,c as s}from"../app.24fa03a5.js";const r=["src"],c={__name:"Emote",props:{url:{type:String,required:!0}},setup(e){const t=e;return(n,a)=>(o(),s("img",{src:t.url},null,8,r))}},u=_(c,[["__scopeId","data-v-da668b20"]]);export{u as E};

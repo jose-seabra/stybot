@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
-    "@twurple/auth": "^5.2.5",
+    "@twurple/auth": "^5.3.1",
     "@twurple/chat": "^5.2.5",
     "@twurple/eventsub": "^5.2.5",
     "axios": "^1.1.3",

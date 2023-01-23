@@ -8,7 +8,7 @@
     "@twurple/auth": "^5.2.5",
     "@twurple/chat": "^5.2.5",
     "@twurple/eventsub": "^5.2.5",
-    "axios": "^1.1.3",
+    "axios": "^1.2.3",
     "dotenv": "^16.0.3",
     "nodemon": "^2.0.20",
     "openai": "git+https://github.com/kafkas/openai-node#8b5ebb7c572440a4a1a8a08c54dfda7e77003c6a",

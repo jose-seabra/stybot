@@ -15,19 +15,22 @@ import {
 async function main() {
     const clientId = process.env.CLIENT_ID
     const clientSecret = process.env.CLIENT_SECRET
-    const tokenData = JSON.parse(await fs.readFile("./tokens.json"))
-    const authProvider = new RefreshingAuthProvider(
-        {
-            clientId,
-            clientSecret,
-            onRefresh: async (newTokenData) =>
-                await fs.writeFile(
-                    "./tokens.json",
-                    JSON.stringify(newTokenData, null, 4),
-                    "UTF-8"
-                ),
-        },
-        tokenData
+    const userId = process.env.USER_ID
+    const tokenData = JSON.parse(await fs.readFile(`./tokens.${userId}.json`, 'UTF-8'))
+    const authProvider = new RefreshingAuthProvider({
+        clientId,
+        clientSecret,
+        onRefresh: async (userId, newTokenData) =>
+            await fs.writeFile(
+                `./tokens.${userId}.json`,
+                JSON.stringify(newTokenData, null, 4),
+                "UTF-8"
+            ),
+    })
+
+    await authProvider.addUserForToken(
+        tokenData,
+        ["chat"]
     )
 
     const chatClient = new ChatClient({

@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/jose-seabra/stybot#readme",
   "devDependencies": {
-    "vitepress": "^1.0.0-alpha.19",
-    "vue": "^3.2.40"
+    "vitepress": "^1.0.0-alpha.51",
+    "vue": "^3.2.47"
   }
 }

@@ -1,11 +1,11 @@
 import { permissions } from "../helpers/constants.js"
 
 export const settings = {
-    name: "badjoke",
-    description: "Tell a frequently bad joke.",
+    name: "nba",
+    description: "WIP",
     enabled: true,
     permission: permissions.VIEWER,
-    globalDelay: 1,
-    userDelay: 60,
-    dailyLimit: 0,
+    globalDelay: 0,
+    userDelay: 0,
+    dailyLimit: 70,
 }

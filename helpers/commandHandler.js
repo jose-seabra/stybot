@@ -2,6 +2,9 @@ import { permissions } from "../helpers/constants.js"
 
 import { convertSecondsToMiliseconds } from "../helpers/helper.js"
 
+let limiter = {}
+let day = new Date().getDate()
+
 export function readyToRun(settings, status, channel, user, msg) {
     return new Promise((resolve, reject) => {
         if (!settings.enabled) return reject("function is disabled")
@@ -17,11 +20,32 @@ export function readyToRun(settings, status, channel, user, msg) {
             }
         }
 
+        if (!limiter[settings.name]) {
+            limiter[settings.name] = {
+                dailyLimit: settings.dailyLimit || 0,
+                dailyUsage: 0,
+            }
+        }
+
         if (!status[channel].ready) return reject("function is not ready")
 
         if (status[channel].delayUsers.includes(user))
             return reject("user is on cooldown")
 
+        if (limiter[settings.name].dailyLimit > 0) {
+            if (day !== new Date().getDate()) {
+                limiter = {}
+                limiter[settings.name] = {
+                    dailyLimit: settings.dailyLimit || 0,
+                    dailyUsage: 0,
+                }
+            }
+            if (limiter[settings.name].dailyUsage >= limiter[settings.name].dailyLimit) {
+                return reject("daily limit reached for this command")
+            }
+            limiter[settings.name].dailyUsage++
+        }
+        
         if (settings?.globalDelay > 0) {
             status[channel].ready = false
             setTimeout(() => {

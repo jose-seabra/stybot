@@ -10,11 +10,11 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} translate おはよう！`
+`{{ PREFIX }}translate おはよう！`
 
 > @{user} lang:ja "Good morning!"
 
-`{{ PREFIX }} translate to:es hi, how are you? `
+`{{ PREFIX }}translate to:es hi, how are you? `
 
 > @{user} lang:en "Hola, ¿qué tal?"
 

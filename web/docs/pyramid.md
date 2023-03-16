@@ -14,7 +14,7 @@ const emoteUrl = "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_447df256f3b
 
 <!-- Input: `!pyramid 🚀` -->
 
-<div style="display: flex; align-items: baseline;"> <code style="display: flex; align-items: center;">{{ PREFIX }} pyramid <Emote :url=emoteUrl /></code> </div>
+<div style="display: flex; align-items: baseline;"> <code style="display: flex; align-items: center;">{{ PREFIX }}pyramid <Emote :url=emoteUrl /></code> </div>
 
 
 ><template v-for="(n, index) in 5"><div style="display: flex; justify-content: center;"><Emote v-for="n in index + 1" :url=emoteUrl /></div></template>

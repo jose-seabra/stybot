@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} time andorra`
+`{{ PREFIX }}time andorra`
 
 > @{user} current time in Andorra La Vella/Andorra: 2022-10-18 19:03 
 

@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} trivia`
+`{{ PREFIX }}trivia`
 
 > Entertainment: Film 🎬 What was Dorothy's surname in 'The Wizard Of Oz'?
 

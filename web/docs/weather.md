@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} weather rome`
+`{{ PREFIX }}weather rome`
 
 > @{user} current weather for Rome/Italy: 19:15 🕐 Clear 🌑 21ºC/69.8ºF 🌡 13KPH/8.1MPH 💨 
 

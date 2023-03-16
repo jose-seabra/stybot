@@ -10,11 +10,11 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} cheer`
+`{{ PREFIX }}cheer`
 
 > @{user} You have the biggest heart. 
 
-`{{ PREFIX }} cheer @someone`
+`{{ PREFIX }}cheer @someone`
 
 > @{someone} You are the reason I smile every day.
 

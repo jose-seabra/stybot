@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} nba today`
+`{{ PREFIX }}nba today`
 
 > NBA Games Today (UTC-8) 🕒 ⠀DET - DEN - 16:00 🗓 ⠀BKN - SAC - 16:30 🗓 ⠀TOR - OKC - 16:30 🗓 ⠀MIL - IND - 17:00 🗓 ⠀PHX - ORL - 19:00 🗓
 

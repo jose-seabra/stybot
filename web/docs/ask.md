@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} ask what can you tell me about node.js?`
+`{{ PREFIX }}ask what can you tell me about node.js?`
 
 > Node.js is a JavaScript runtime environment that allows you to run JavaScript code on your server.
 

@@ -12,7 +12,7 @@ const emote = "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/dark/
 
 ## Usage
 
-`{{ PREFIX }} sr`
+`{{ PREFIX }}sr`
 
 > <span style="display: flex;">@{user} your SR is 4610 <Emote :url=emote /></span>
 

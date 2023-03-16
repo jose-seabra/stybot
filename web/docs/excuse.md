@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} excuse`
+`{{ PREFIX }}excuse`
 
 > My brother can't pick up my in-laws at the airport, so I'll have to go in his place. 
 

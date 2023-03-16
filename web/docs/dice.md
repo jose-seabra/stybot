@@ -10,11 +10,11 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} dice`
+`{{ PREFIX }}dice`
 
 > @{user} rolled a 4
 
-`{{ PREFIX }} dice 100`
+`{{ PREFIX }}dice 100`
 
 > @{user} rolled a 76
 

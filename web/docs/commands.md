@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} commands`
+`{{ PREFIX }}commands`
 
 > @{user} a full list of commands can be found at https://tinyurl.com/stybot 
 

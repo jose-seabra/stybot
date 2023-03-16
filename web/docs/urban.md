@@ -10,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`{{ PREFIX }} urban no shot`
+`{{ PREFIX }}urban no shot`
 
 > Indicating that an action has no chance in happening whatsoever.
 

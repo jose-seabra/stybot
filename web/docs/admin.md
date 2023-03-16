@@ -13,11 +13,11 @@ const borpaSpinUrl = "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_447df25
 
 ## Usage
 
-`{{ PREFIX }} admin restart`
+`{{ PREFIX }}admin restart`
 
 > <span style="display: flex;">restarting <Emote :url=peepoStrokeUrl /></span>
 
-`{{ PREFIX }} admin update`
+`{{ PREFIX }}admin update`
 
 > <span style="display: flex;">updating <Emote :url=borpaSpinUrl /></span>
 

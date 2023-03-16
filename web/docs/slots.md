@@ -13,7 +13,7 @@ const PogChamp = "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/da
 
 ## Usage
 
-`{{ PREFIX }} slots`
+`{{ PREFIX }}slots`
 
 > <span style="display: flex;">@{user} rolled | <Emote :url=Kappa /> | <Emote :url=Kappa /> | <Emote :url=Kappa /> | And won <Emote :url=PogChamp /></span>
 

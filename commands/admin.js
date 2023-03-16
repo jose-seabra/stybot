@@ -5,7 +5,7 @@ let status = {}
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export function sb(chatClient, channel, user, msg, args) {
+export function admin(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(() => {
             if (callables[args[0]]) {

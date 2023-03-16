@@ -1,7 +1,7 @@
 import { permissions } from "../helpers/constants.js"
 
 export const settings = {
-    name: "sbcommands",
+    name: "commands",
     description: "Displays a link to the full list of commands.",
     enabled: true,
     permission: permissions.VIEWER,

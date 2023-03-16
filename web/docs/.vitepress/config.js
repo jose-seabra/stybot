@@ -23,6 +23,7 @@ export default defineConfig({
                     { text: "cheer", link: "/cheer" },
                     { text: "dice", link: "/dice" },
                     { text: "excuse", link: "/excuse" },
+                    { text: "nba", link: "/nba" },
                     { text: "pyramid", link: "/pyramid" },
                     { text: "sbcommands", link: "/sbcommands" },
                     { text: "slots", link: "/slots" },

@@ -1,4 +1,4 @@
-export const enabledChannels = ["stydevz", "stybot2"]
+export const enabledChannels = ["stydevz", "stybot2", "sillentstriker"]
 export const permissions = {
     SUPERUSER: 9000,
     BROADCASTER: 50,

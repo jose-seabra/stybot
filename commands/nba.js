@@ -32,7 +32,7 @@ export function nba(chatClient, channel, user, msg, args) {
         })
 }
 
-async function games(chatClient, channel, user, msg, args) {
+async function today(chatClient, channel, user, msg, args) {
     const [command, option] = args
 
     const date = new Date(
@@ -178,5 +178,5 @@ function shortifyTeamName(fullTeamName) {
 }
 
 const callables = {
-    games,
+    today,
 }

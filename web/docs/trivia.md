@@ -1,6 +1,7 @@
 # trivia
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/trivia.js"
 const { description, ...settings } = s
 </script>
@@ -9,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!trivia`
+`{{ PREFIX }} trivia`
 
 > Entertainment: Film 🎬 What was Dorothy's surname in 'The Wizard Of Oz'?
 

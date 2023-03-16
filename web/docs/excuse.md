@@ -1,6 +1,7 @@
 # excuse
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/excuse.js"
 const { description, ...settings } = s
 </script>
@@ -9,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!excuse`
+`{{ PREFIX }} excuse`
 
 > My brother can't pick up my in-laws at the airport, so I'll have to go in his place. 
 

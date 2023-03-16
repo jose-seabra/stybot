@@ -3,7 +3,7 @@ import { RefreshingAuthProvider } from "@twurple/auth"
 import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
-import { enabledChannels } from "./helpers/constants.js"
+import { enabledChannels, PREFIX } from "./helpers/constants.js"
 
 import * as commands from "./commands/index.js"
 import {
@@ -39,8 +39,6 @@ async function main() {
     })
 
     await chatClient.connect()
-
-    const PREFIX = "!"
 
     chatClient.onMessage((channel, user, text, msg) => {
         if (

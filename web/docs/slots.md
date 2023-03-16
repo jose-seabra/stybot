@@ -1,6 +1,7 @@
 # slots
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/slots.js"
 const { description, ...settings } = s
 import Emote from "./components/Emote.vue"
@@ -12,7 +13,7 @@ const PogChamp = "https://static-cdn.jtvnw.net/emoticons/v2/305954156/default/da
 
 ## Usage
 
-`!slots`
+`{{ PREFIX }} slots`
 
 > <span style="display: flex;">@{user} rolled | <Emote :url=Kappa /> | <Emote :url=Kappa /> | <Emote :url=Kappa /> | And won <Emote :url=PogChamp /></span>
 

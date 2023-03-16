@@ -1,6 +1,7 @@
 # urban
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/urban.js"
 const { description, ...settings } = s
 </script>
@@ -9,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!urban no shot`
+`{{ PREFIX }} urban no shot`
 
 > Indicating that an action has no chance in happening whatsoever.
 

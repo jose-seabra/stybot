@@ -1,6 +1,7 @@
 # cheer
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/cheer.js"
 const { description, ...settings } = s
 </script>
@@ -9,11 +10,11 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!cheer`
+`{{ PREFIX }} cheer`
 
 > @{user} You have the biggest heart. 
 
-`!cheer @someone`
+`{{ PREFIX }} cheer @someone`
 
 > @{someone} You are the reason I smile every day.
 

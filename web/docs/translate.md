@@ -1,6 +1,7 @@
 # translate
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/translate.js"
 const { description, ...settings } = s
 </script>
@@ -9,11 +10,11 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!translate おはよう！`
+`{{ PREFIX }} translate おはよう！`
 
 > @{user} lang:ja "Good morning!"
 
-`!translate to:es hi, how are you? `
+`{{ PREFIX }} translate to:es hi, how are you? `
 
 > @{user} lang:en "Hola, ¿qué tal?"
 

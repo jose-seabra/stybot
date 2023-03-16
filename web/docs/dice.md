@@ -1,6 +1,7 @@
 # dice
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/dice.js"
 const { description, ...settings } = s
 </script>
@@ -9,11 +10,11 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!dice`
+`{{ PREFIX }} dice`
 
 > @{user} rolled a 4
 
-`!dice 100`
+`{{ PREFIX }} dice 100`
 
 > @{user} rolled a 76
 

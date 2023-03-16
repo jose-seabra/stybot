@@ -1,6 +1,7 @@
 # weather
 
 <script setup>
+import { PREFIX } from "../../helpers/constants.js"
 import { settings as s } from "../../settings/weather.js"
 const { description, ...settings } = s
 </script>
@@ -9,7 +10,7 @@ const { description, ...settings } = s
 
 ## Usage
 
-`!weather rome`
+`{{ PREFIX }} weather rome`
 
 > @{user} current weather for Rome/Italy: 19:15 🕐 Clear 🌑 21ºC/69.8ºF 🌡 13KPH/8.1MPH 💨 
 

@@ -1,1 +1,0 @@
-import{_,o,c as s}from"../app.fed25002.js";const r=["src"],c={__name:"Emote",props:{url:{type:String,required:!0}},setup(e){const t=e;return(n,p)=>(o(),s("img",{src:t.url},null,8,r))}},u=_(c,[["__scopeId","data-v-801d6777"]]);export{u as E};

@@ -25,23 +25,58 @@ export function nba(chatClient, channel, user, msg, args) {
             }
         })
         .catch((error) => {
-            chatClient.say(
-                channel,
-                `@${user} ${error}`
-            )
+            chatClient.say(channel, `@${user} ${error}`)
         })
 }
 
+async function stats(chatClient, channel, user, msg, args) {
+    const [command, ...team] = args
+    const { season } = initDates()
+    const teamId = getTeamIdByName(team.join(" "))
+
+    if (teamId === undefined) {
+        chatClient.say(channel, `@${user} Invalid team name`)
+        return
+    }
+
+    const options = {
+        method: "GET",
+        url: "https://api-basketball.p.rapidapi.com/statistics",
+        params: {
+            league: 12,
+            season: season,
+            team: teamId,
+        },
+        headers: {
+            "X-RapidAPI-Key": key,
+            "X-RapidAPI-Host": "api-basketball.p.rapidapi.com",
+        },
+    }
+
+    const response = await axios.request(options)
+
+    let output = `
+    Stats for ${response.data.response.team.name} ${emojiByTeam(
+        response.data.response.team.name
+    )}⠀
+    ${response.data.response.games.wins.all.total}W ${
+        response.data.response.games.loses.all.total
+    }L
+    - ${response.data.response.games.wins.all.percentage * 100}% ${
+        response.data.response.games.wins.all.percentage < 0.5
+            ? "LUL"
+            : "PogChamp"
+    } 
+    Avg. Points For/Against - ${
+        response.data.response.points.for.average.all
+    }/${response.data.response.points.against.average.all}
+    `
+
+    chatClient.say(channel, output)
+}
+
 async function games(chatClient, channel, user, msg, args) {
-    const [command, option] = args
-
-    const date = new Date(
-        new Date().toLocaleString("en", { timeZone: "America/Los_Angeles" })
-    )
-
-    const season = date.getMonth() > 6
-        ? `${date.getFullYear()}-${date.getFullYear()+1}`
-        : `${date.getFullYear()-1}-${date.getFullYear()}`
+    const { date, season } = initDates()
 
     const options = {
         method: "GET",
@@ -70,6 +105,19 @@ async function games(chatClient, channel, user, msg, args) {
     chatClient.say(channel, output)
 }
 
+function initDates() {
+    const date = new Date(
+        new Date().toLocaleString("en", { timeZone: "America/Los_Angeles" })
+    )
+
+    const season =
+        date.getMonth() > 6
+            ? `${date.getFullYear()}-${date.getFullYear() + 1}`
+            : `${date.getFullYear() - 1}-${date.getFullYear()}`
+
+    return { date, season }
+}
+
 function listGame(game) {
     if (game.status.short === "NS") {
         return `${shortifyTeamName(game.teams.home.name)} - ${shortifyTeamName(
@@ -81,7 +129,7 @@ function listGame(game) {
         game.scores.home.total
     }-${game.scores.away.total} ${shortifyTeamName(game.teams.away.name)} - ${
         game.status.short
-    } ${emojiByGameStatus(game.status.short)}⠀`
+    } ${emojiByGameStatus(game.status.short)} ⠀`
 }
 
 function emojiByGameStatus(status) {
@@ -109,6 +157,74 @@ function emojiByGameStatus(status) {
             return "❌"
         default:
             return "❓"
+    }
+}
+
+function emojiByTeam(teamName) {
+    switch (teamName) {
+        case "Atlanta Hawks":
+            return "🦅"
+        case "Boston Celtics":
+            return "🍀"
+        case "Brooklyn Nets":
+            return "🕸"
+        case "Charlotte Hornets":
+            return "🐝"
+        case "Chicago Bulls":
+            return "🐂"
+        case "Cleveland Cavaliers":
+            return "🏇"
+        case "Dallas Mavericks":
+            return "🐴"
+        case "Denver Nuggets":
+            return "⚒"
+        case "Detroit Pistons":
+            return "🏀"
+        case "Golden State Warriors":
+            return "🌉"
+        case "Houston Rockets":
+            return "🚀"
+        case "Indiana Pacers":
+            return "🏀"
+        case "Los Angeles Clippers":
+            return "📎"
+        case "Los Angeles Lakers":
+            return "🏆"
+        case "Memphis Grizzlies":
+            return "🐻"
+        case "Miami Heat":
+            return "🔥"
+        case "Milwaukee Bucks":
+            return "🦌"
+        case "Minnesota Timberwolves":
+            return "🐺"
+        case "New Orleans Pelicans":
+            return "🐔"
+        case "New York Knicks":
+            // return "🗽"
+            return "🗑️"
+        case "Oklahoma City Thunder":
+            return "⚡"
+        case "Orlando Magic":
+            return "☄"
+        case "Philadelphia 76ers":
+            return "🏀"
+        case "Phoenix Suns":
+            return "🌞"
+        case "Portland Trail Blazers":
+            return "🌲"
+        case "Sacramento Kings":
+            return "👑"
+        case "San Antonio Spurs":
+            return "🌵"
+        case "Toronto Raptors":
+            return "🦖"
+        case "Utah Jazz":
+            return "🎺"
+        case "Washington Wizards":
+            return "🧙"
+        default:
+            break
     }
 }
 
@@ -179,6 +295,163 @@ function shortifyTeamName(fullTeamName) {
     }
 }
 
+function getTeamIdByName(name) {
+    switch (name) {
+        case "atlanta hawks":
+        case "atl":
+        case "atlanta":
+        case "hawks":
+            return 132
+        case "boston celtics":
+        case "bos":
+        case "boston":
+        case "celtics":
+            return 133
+        case "brooklyn nets":
+        case "bkn":
+        case "brooklyn":
+        case "nets":
+            return 134
+        case "charlotte hornets":
+        case "cha":
+        case "charlotte":
+        case "hornets":
+            return 135
+        case "chicago bulls":
+        case "chi":
+        case "chicago":
+        case "bulls":
+            return 136
+        case "cleveland cavaliers":
+        case "cle":
+        case "cleveland":
+        case "cavaliers":
+            return 137
+        case "dallas mavericks":
+        case "dal":
+        case "dallas":
+        case "mavericks":
+            return 138
+        case "denver nuggets":
+        case "den":
+        case "denver":
+        case "nuggets":
+            return 139
+        case "detroit pistons":
+        case "det":
+        case "detroit":
+        case "pistons":
+            return 140
+        case "golden state warriors":
+        case "gsw":
+        case "golden state":
+        case "warriors":
+            return 141
+        case "houston rockets":
+        case "hou":
+        case "houston":
+        case "rockets":
+            return 142
+        case "indiana pacers":
+        case "ind":
+        case "indiana":
+        case "pacers":
+            return 143
+        case "los angeles clippers":
+        case "lac":
+        case "los angeles":
+        case "clippers":
+            return 144
+        case "los angeles lakers":
+        case "lal":
+        case "lakers":
+            return 145
+        case "memphis grizzlies":
+        case "mem":
+        case "memphis":
+        case "grizzlies":
+            return 146
+        case "miami heat":
+        case "mia":
+        case "miami":
+        case "heat":
+            return 147
+        case "milwaukee bucks":
+        case "mil":
+        case "milwaukee":
+        case "bucks":
+            return 148
+        case "minnesota timberwolves":
+        case "min":
+        case "minnesota":
+        case "timberwolves":
+            return 149
+        case "new orleans pelicans":
+        case "nop":
+        case "new orleans":
+        case "pelicans":
+            return 150
+        case "new york knicks":
+        case "nyk":
+        case "new york":
+        case "knicks":
+            return 151
+        case "oklahoma city thunder":
+        case "okc":
+        case "oklahoma city":
+        case "thunder":
+            return 152
+        case "orlando magic":
+        case "orl":
+        case "orlando":
+        case "magic":
+            return 153
+        case "philadelphia 76ers":
+        case "phi":
+        case "philadelphia":
+        case "76ers":
+            return 154
+        case "phoenix suns":
+        case "phx":
+        case "phoenix":
+        case "suns":
+            return 155
+        case "portland trail blazers":
+        case "por":
+        case "portland":
+        case "trail blazers":
+            return 156
+        case "sacramento kings":
+        case "sac":
+        case "sacramento":
+        case "kings":
+            return 157
+        case "san antonio spurs":
+        case "sas":
+        case "san antonio":
+        case "spurs":
+            return 158
+        case "toronto raptors":
+        case "tor":
+        case "toronto":
+        case "raptors":
+            return 159
+        case "utah jazz":
+        case "uta":
+        case "utah":
+        case "jazz":
+            return 160
+        case "washington wizards":
+        case "was":
+        case "washington":
+        case "wizards":
+            return 161
+        default:
+            return undefined
+    }
+}
+
 const callables = {
     games,
+    stats,
 }

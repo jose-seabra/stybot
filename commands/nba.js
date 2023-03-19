@@ -32,12 +32,16 @@ export function nba(chatClient, channel, user, msg, args) {
         })
 }
 
-async function today(chatClient, channel, user, msg, args) {
+async function games(chatClient, channel, user, msg, args) {
     const [command, option] = args
 
     const date = new Date(
         new Date().toLocaleString("en", { timeZone: "America/Los_Angeles" })
     )
+
+    const season = date.getMonth() > 6
+        ? `${date.getFullYear()}-${date.getFullYear()+1}`
+        : `${date.getFullYear()-1}-${date.getFullYear()}`
 
     const options = {
         method: "GET",
@@ -46,7 +50,7 @@ async function today(chatClient, channel, user, msg, args) {
             league: 12,
             date: date.toISOString().split("T")[0],
             timezone: "America/Los_Angeles",
-            season: "2022-2023",
+            season: season,
         },
 
         headers: {
@@ -62,8 +66,6 @@ async function today(chatClient, channel, user, msg, args) {
     response.data.response.map((game) => {
         output += listGame(game)
     })
-
-    console.log(output)
 
     chatClient.say(channel, output)
 }
@@ -178,5 +180,5 @@ function shortifyTeamName(fullTeamName) {
 }
 
 const callables = {
-    today,
+    games,
 }

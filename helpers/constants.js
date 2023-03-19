@@ -1,5 +1,5 @@
 export const enabledChannels = ["stydevz", "stybot2"]
-export const PREFIX = "sb "
+export const PREFIX = "$"
 export const permissions = {
     SUPERUSER: 9000,
     BROADCASTER: 50,

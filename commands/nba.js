@@ -62,7 +62,7 @@ async function stats(chatClient, channel, user, msg, args) {
     ${response.data.response.games.wins.all.total}W ${
         response.data.response.games.loses.all.total
     }L
-    - ${response.data.response.games.wins.all.percentage * 100}% ${
+    - ${Math.round(response.data.response.games.wins.all.percentage * 100)}% ${
         response.data.response.games.wins.all.percentage < 0.5
             ? "LUL"
             : "PogChamp"

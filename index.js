@@ -16,7 +16,9 @@ async function main() {
     const clientId = process.env.CLIENT_ID
     const clientSecret = process.env.CLIENT_SECRET
     const userId = process.env.USER_ID
-    const tokenData = JSON.parse(await fs.readFile(`./tokens.${userId}.json`, 'UTF-8'))
+    const tokenData = JSON.parse(
+        await fs.readFile(`./tokens.${userId}.json`, "UTF-8")
+    )
     const authProvider = new RefreshingAuthProvider({
         clientId,
         clientSecret,
@@ -28,10 +30,7 @@ async function main() {
             ),
     })
 
-    await authProvider.addUserForToken(
-        tokenData,
-        ["chat"]
-    )
+    await authProvider.addUserForToken(tokenData, ["chat"])
 
     const chatClient = new ChatClient({
         authProvider,

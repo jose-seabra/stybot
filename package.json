@@ -7,7 +7,7 @@
   "dependencies": {
     "@twurple/auth": "^6.0.9",
     "@twurple/chat": "^6.0.9",
-    "@twurple/eventsub-http": "^6.0.9",
+    "@twurple/eventsub-http": "^6.1.1",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
     "openai": "^3.2.1",

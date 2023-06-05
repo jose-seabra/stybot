@@ -9,7 +9,7 @@
     "@twurple/chat": "^6.2.1",
     "@twurple/eventsub-http": "^6.2.1",
     "axios": "^1.4.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.4",
     "openai": "^3.2.1",
     "wtf_wikipedia": "^10.1.5"
   },

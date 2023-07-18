@@ -12,8 +12,6 @@ export function slots(chatClient, channel, user, msg, args) {
             let emoteset
             let emotesArray = []
 
-            channel = channel.substring(1)
-
             emotes[channel]
                 ? (emoteset = emotes[channel])
                 : (emoteset = emotes["default"])

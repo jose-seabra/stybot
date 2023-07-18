@@ -25,6 +25,7 @@ export default defineConfig({
                     { text: "commands", link: "/commands" },
                     { text: "dice", link: "/dice" },
                     { text: "excuse", link: "/excuse" },
+                    { text: "myrank", link: "/myrank" },
                     { text: "nba", link: "/nba" },
                     { text: "pyramid", link: "/pyramid" },
                     { text: "slots", link: "/slots" },

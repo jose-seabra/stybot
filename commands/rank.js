@@ -1,11 +1,11 @@
 import { emotes } from "../helpers/constants.js"
-import { settings } from "../settings/myrank.js"
+import { settings } from "../settings/rank.js"
 
 let status = {}
 
 import { readyToRun } from "../helpers/commandHandler.js"
 
-export function myrank(chatClient, channel, user, msg, args) {
+export function rank(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(() => {
             const rank = Math.floor(Math.random() * 7) + 1

@@ -12,7 +12,7 @@ const emote = "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_30050f4353aa43
 
 ## Usage
 
-`{{ PREFIX }}myrank`
+`{{ PREFIX }}rank`
 
 > <span style="display: flex;">@{user} your rank is Grandmaster 2 <Emote :url=emote /></span>
 

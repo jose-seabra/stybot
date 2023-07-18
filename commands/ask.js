@@ -26,7 +26,7 @@ export async function ask(chatClient, channel, user, msg, args) {
             }
 
             const response = await openai.createCompletion({
-                model: "text-davinci-003",
+                model: "text-davinci-002",
                 prompt: `Stybot is a chatbot that answers questions with funny and controversial responses:\n\nYou: ${q}\nStybot:`,
                 temperature: 1,
                 max_tokens: 120,

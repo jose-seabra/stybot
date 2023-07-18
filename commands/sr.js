@@ -12,8 +12,6 @@ export function sr(chatClient, channel, user, msg, args) {
             let emote
             let emoteset
 
-            channel = channel.substring(1)
-
             emotes[channel]
                 ? (emoteset = emotes[channel])
                 : (emoteset = emotes["default"])

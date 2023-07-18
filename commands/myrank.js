@@ -15,8 +15,6 @@ export function myrank(chatClient, channel, user, msg, args) {
             let emoteset
             let rankname
 
-            channel = channel.substring(1)
-
             emotes[channel]
                 ? (emoteset = emotes[channel])
                 : (emoteset = emotes["default"])

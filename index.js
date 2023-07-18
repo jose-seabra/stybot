@@ -37,7 +37,7 @@ async function main() {
         channels: enabledChannels,
     })
 
-    await chatClient.connect()
+    chatClient.connect()
 
     chatClient.onMessage((channel, user, text, msg) => {
         if (

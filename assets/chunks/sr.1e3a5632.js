@@ -1,0 +1,1 @@
+import{p as s}from"./constants.cc4c323a.js";const a={name:"sr",description:"Get a random SR value for you. Based on OW1 SR system.",enabled:!0,permission:s.VIEWER,globalDelay:0,userDelay:120,dailyLimit:0};export{a as s};

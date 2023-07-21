@@ -43,7 +43,7 @@ function update(chatClient, channel, user, msg, args) {
     const [command, option] = args
 
     exec("git pull", (error, stdout, stderr) => {
-        if (error !== null || stderr) {
+        if (error !== null || !!stderr) {
             let errorMessage
             switch (option) {
                 case "-v":

@@ -20,6 +20,10 @@ Gale
 
 > @{user} got it! Correct answer is Gale 
 
+`{{ PREFIX }}trivia cancel`
+
+> @${user} trivia cancelled!`)
+
 ## Settings
 <div v-for="(setting, index) in settings">
 {{ index }} - <code>{{ setting }}</code>

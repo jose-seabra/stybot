@@ -8,8 +8,7 @@ import { enabledChannels, PREFIX } from "./helpers/constants.js"
 import * as commands from "./commands/index.js"
 import {
     status as triviaStatus,
-    questionTimeout as triviaTimeout,
-    optionsTimeout as triviaOptionsTimeout,
+    end as triviaEnd,
 } from "./commands/trivia.js"
 
 async function main() {
@@ -50,12 +49,7 @@ async function main() {
                 channel,
                 `@${user} got it! Correct answer is ${triviaStatus[channel].correct_answer}`
             )
-            triviaStatus[channel] = {
-                ready: true,
-                delayUsers: [],
-            }
-            clearTimeout(triviaTimeout[channel])
-            clearTimeout(triviaOptionsTimeout[channel])
+            triviaEnd(chatClient, channel)
         }
 
         if (!text.startsWith(PREFIX)) {

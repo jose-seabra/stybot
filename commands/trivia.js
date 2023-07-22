@@ -26,84 +26,99 @@ async function start(chatClient, channel, user, msg, args) {
         return
     }
 
-    status[channel] = {
-        ...status[channel],
-        ongoing: true,
-    }
-
     const options = {
         method: "GET",
         url: "https://opentdb.com/api.php?amount=1&encode=base64",
     }
-    try {
-        const response = await axios.request(options)
-        const {
-            category,
-            type,
-            difficulty,
-            question,
-            correct_answer,
-            incorrect_answers,
-        } = response.data.results[0]
 
-        const categoryString = Buffer.from(category, "base64").toString("utf-8")
-        const typeString = Buffer.from(type, "base64").toString("utf-8")
-        // const difficultyString = Buffer.from(
-        //     difficulty,
-        //     "base64"
-        // ).toString("utf-8")
-        const questionString = Buffer.from(question, "base64").toString("utf-8")
-        const correct_answerString = Buffer.from(
-            correct_answer,
-            "base64"
-        ).toString("utf-8")
-        const incorrect_answersString = incorrect_answers.map((answer) => {
-            return Buffer.from(answer, "base64").toString("utf-8")
-        })
-        const allAnswers = [correct_answerString, ...incorrect_answersString]
+    axios
+        .request(options)
+        .then((response) => {
+            status[channel] = {
+                ...status[channel],
+                ongoing: true,
+            }
 
-        if (typeString === "multiple") {
-            chatClient.say(
-                channel,
-                `
+            const {
+                category,
+                type,
+                difficulty,
+                question,
+                correct_answer,
+                incorrect_answers,
+            } = response.data.results[0]
+
+            const categoryString = Buffer.from(category, "base64").toString(
+                "utf-8"
+            )
+            const typeString = Buffer.from(type, "base64").toString("utf-8")
+            // const difficultyString = Buffer.from(
+            //     difficulty,
+            //     "base64"
+            // ).toString("utf-8")
+            const questionString = Buffer.from(question, "base64").toString(
+                "utf-8"
+            )
+            const correct_answerString = Buffer.from(
+                correct_answer,
+                "base64"
+            ).toString("utf-8")
+            const incorrect_answersString = incorrect_answers.map((answer) => {
+                return Buffer.from(answer, "base64").toString("utf-8")
+            })
+            const allAnswers = [
+                correct_answerString,
+                ...incorrect_answersString,
+            ]
+
+            if (typeString === "multiple") {
+                chatClient.say(
+                    channel,
+                    `
                 ${categoryString} 
                 ${categoryEmoji(categoryString)} 
                 ${questionString}
                 `
-            )
-            optionsTimeout[channel] = setTimeout(() => {
+                )
+                optionsTimeout[channel] = setTimeout(() => {
+                    chatClient.say(
+                        channel,
+                        `${shuffleArray(allAnswers).join(" | ")}`
+                    )
+                }, convertSecondsToMiliseconds(settings.optionsTimeoutDuration))
+            } else if (typeString === "boolean") {
                 chatClient.say(
                     channel,
-                    `${shuffleArray(allAnswers).join(" | ")}`
-                )
-            }, convertSecondsToMiliseconds(settings.optionsTimeoutDuration))
-        } else if (typeString === "boolean") {
-            chatClient.say(
-                channel,
-                `
+                    `
                 ${categoryString} 
                 ${categoryEmoji(categoryString)} 
                 ${questionString}
                 True or false?
                 `
-            )
-        }
+                )
+            }
 
-        // add correct answer to status
-        status[channel] = {
-            ...status[channel],
-            correct_answer: correct_answerString,
-        }
+            // add correct answer to status
+            status[channel] = {
+                ...status[channel],
+                correct_answer: correct_answerString,
+            }
 
-        questionTimeout[channel] = setTimeout(() => {
+            questionTimeout[channel] = setTimeout(() => {
+                chatClient.say(
+                    channel,
+                    `No one got it right! The correct answer was ${correct_answerString}`
+                ),
+                    ((status[channel].correct_answer = null),
+                    (status[channel].ongoing = false))
+            }, convertSecondsToMiliseconds(settings.questionTimeoutDuration))
+        })
+        .catch((error) => {
             chatClient.say(
                 channel,
-                `No one got it right! The correct answer was ${correct_answerString}`
-            ),
-                ((status[channel].correct_answer = null),
-                (status[channel].ongoing = false))
-        }, convertSecondsToMiliseconds(settings.questionTimeoutDuration))
-    } catch (error) {}
+                `Error getting trivia! monkaStop ${error.code}}`
+            )
+        })
 }
 
 function cancel(chatClient, channel, user, msg, args) {

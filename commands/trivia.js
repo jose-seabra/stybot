@@ -116,7 +116,7 @@ async function start(chatClient, channel, user, msg, args) {
         .catch((error) => {
             chatClient.say(
                 channel,
-                `Error getting trivia! monkaStop ${error.code}}`
+                `Error getting trivia! monkaStop ${error.code}`
             )
         })
 }

@@ -30,6 +30,11 @@ export async function ask(chatClient, channel, user, msg, args) {
                     { role: "user", content: q },
                 ],
                 model: "gpt-3.5-turbo",
+                temperature: 0.9,
+                max_tokens: 120,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
             })
 
             chatClient.say(channel, completion.choices[0].message.content)

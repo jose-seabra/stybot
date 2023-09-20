@@ -24,16 +24,15 @@ export async function ask(chatClient, channel, user, msg, args) {
                 return
             }
 
-            const response = await openai.completions.create({
-                model: "text-davinci-002",
-                prompt: `Stybot is a chatbot that answers questions with funny and controversial responses:\n\nYou: ${q}\nStybot:`,
-                temperature: 1,
-                max_tokens: 120,
-                top_p: 0.5,
-                frequency_penalty: 0.5,
-                presence_penalty: 0,
+            const completion = await openai.chat.completions.create({
+                messages: [
+                    { role: "system", content: "You are a funny chatbot that either replies with accurate responses or sarcasm" },
+                    { role: "user", content: q },
+                ],
+                model: "gpt-3.5-turbo",
             })
-            chatClient.say(channel, response.choices[0].text)
+
+            chatClient.say(channel, completion.choices[0].message.content)
         })
         .catch((error) => {})
 }

@@ -24,13 +24,21 @@ export async function ask(chatClient, channel, user, msg, args) {
                 return
             }
 
+            let actorPrompt = "You are a funny chatbot that either replies with accurate responses or sarcasm. Keep responses short when possible"
+            let questionPrompt = q
+
+            if (q.includes("a:") && q.includes("q:")) {
+                actorPrompt = q.split("a:")[1].split("q:")[0] + ". Try to be funny and short when possible."
+                questionPrompt = q.split("q:")[1]
+            }
+
             const completion = await openai.chat.completions.create({
                 messages: [
-                    { role: "system", content: "You are a funny chatbot that either replies with accurate responses or sarcasm" },
-                    { role: "user", content: q },
+                    { role: "system", content: actorPrompt },
+                    { role: "user", content: questionPrompt },
                 ],
                 model: "gpt-3.5-turbo",
-                temperature: 0.9,
+                temperature: 1,
                 max_tokens: 120,
                 top_p: 1,
                 frequency_penalty: 0,

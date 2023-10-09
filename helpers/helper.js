@@ -30,3 +30,23 @@ export function filterSlurs(message) {
     }, message)
     return filteredMessage
 }
+
+const MAX_RETRY_ATTEMPTS = 5
+const RETRY_DELAY_MS = 10000
+export async function retryOnDnsFailure(action, retryAttempts = 1) {
+    try {
+        return await action()
+    } catch (error) {
+        if (retryAttempts >= MAX_RETRY_ATTEMPTS) {
+            throw error
+        }
+        fs.writeFile("./logs/notice.log", "\n" + `Retry number: ${retryAttempts}`, { flag: "a" })
+
+        if (error.code.includes("EAI_AGAIN")) {
+            await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS))
+            return retryOnDnsFailure(action, retryAttempts + 1)
+        }
+
+        throw error
+    }
+}

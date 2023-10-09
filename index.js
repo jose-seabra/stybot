@@ -4,7 +4,7 @@ import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
 import { enabledChannels, PREFIX } from "./helpers/constants.js"
-import { filterSlurs } from "./helpers/helper.js"
+import { filterSlurs, retryOnDnsFailure } from "./helpers/helper.js"
 
 import * as commands from "./commands/index.js"
 import { status as triviaStatus, end as triviaEnd } from "./commands/trivia.js"
@@ -28,6 +28,13 @@ async function main() {
     })
 
     await authProvider.addUserForToken(tokenData, ["chat"])
+
+    try {
+        await retryOnDnsFailure(() => authProvider.addUserForToken(tokenData, ["chat"]))
+    } catch (error) {
+        fs.writeFile("./logs/error.log", "\n" + "Max retry attempts reached. Unable to complete the action." + "\n" + error, { flag: "a" })
+        return
+    }
 
     const chatClient = new ChatClient({
         authProvider,

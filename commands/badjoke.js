@@ -13,11 +13,11 @@ export async function badjoke(chatClient, channel, user, msg, args) {
             const joke = await fetchJoke()
 
             if (joke.type === "single") {
-                chatClient.say(channel, `${joke.joke}`)
+                chatClient.saySafe(channel, `${joke.joke}`)
             } else if (joke.type === "twopart") {
-                chatClient.say(channel, `${joke.setup}`)
+                chatClient.saySafe(channel, `${joke.setup}`)
                 sleep(5000).then(() =>
-                    chatClient.say(channel, `${joke.delivery}`)
+                    chatClient.saySafe(channel, `${joke.delivery}`)
                 )
             }
         })

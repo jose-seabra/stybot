@@ -20,15 +20,18 @@ export async function ask(chatClient, channel, user, msg, args) {
             })
 
             if (safe.results[0].flagged) {
-                chatClient.say(channel, "Don't be weird Dudge")
+                chatClient.saySafe(channel, "Don't be weird Dudge")
                 return
             }
 
-            let actorPrompt = "You are a funny chatbot that either replies with accurate responses or sarcasm. Keep responses short when possible"
+            let actorPrompt =
+                "You are a funny chatbot that either replies with accurate responses or sarcasm. Keep responses short when possible"
             let questionPrompt = q
 
             if (q.includes("a:") && q.includes("q:")) {
-                actorPrompt = q.split("a:")[1].split("q:")[0] + ". Try to be funny and short when possible."
+                actorPrompt =
+                    q.split("a:")[1].split("q:")[0] +
+                    ". Try to be funny and short when possible."
                 questionPrompt = q.split("q:")[1]
             }
 
@@ -45,7 +48,7 @@ export async function ask(chatClient, channel, user, msg, args) {
                 presence_penalty: 0,
             })
 
-            chatClient.say(channel, completion.choices[0].message.content)
+            chatClient.saySafe(channel, completion.choices[0].message.content)
         })
         .catch((error) => {})
 }

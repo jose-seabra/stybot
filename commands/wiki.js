@@ -13,7 +13,7 @@ export async function wiki(chatClient, channel, user, msg, args) {
 
             const doc = await wtf.fetch(q)
 
-            chatClient.say(channel, doc.text().substring(0, 495) + "(...)")
+            chatClient.saySafe(channel, doc.text().substring(0, 495) + "(...)")
         })
         .catch((error) => {})
 }

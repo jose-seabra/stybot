@@ -37,7 +37,7 @@ export function sr(chatClient, channel, user, msg, args) {
             } else if (sr > 4500) {
                 emote = emoteset.dice10
             }
-            chatClient.say(channel, `@${user} your SR is ${sr} ${emote}`)
+            chatClient.saySafe(channel, `@${user} your SR is ${sr} ${emote}`)
         })
         .catch((error) => {})
 }

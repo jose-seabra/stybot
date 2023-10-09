@@ -7,7 +7,7 @@ import { readyToRun } from "../helpers/commandHandler.js"
 export function forsen(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(() => {
-            chatClient.say(
+            chatClient.saySafe(
                 channel,
                 `FORSEN ${LINES[Math.floor(Math.random() * LINES.length) + 1]}`
             )

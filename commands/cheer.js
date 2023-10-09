@@ -285,7 +285,7 @@ export function cheer(chatClient, channel, user, msg, args) {
             if (args[0] && args[0].startsWith("@")) args[0] = args[0].slice(1)
             args[0] ? (target = args[0]) : (target = user)
 
-            chatClient.say(
+            chatClient.saySafe(
                 channel,
                 `@${target} ${
                     COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)]

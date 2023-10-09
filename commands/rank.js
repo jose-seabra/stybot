@@ -49,7 +49,10 @@ export function rank(chatClient, channel, user, msg, args) {
                     rankname = "Grandmaster"
                     break
             }
-            chatClient.say(channel, `@${user} your rank is ${rankname} ${number} ${emote}`)
+            chatClient.saySafe(
+                channel,
+                `@${user} your rank is ${rankname} ${number} ${emote}`
+            )
         })
         .catch((error) => {})
 }

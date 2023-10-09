@@ -17,7 +17,7 @@ export async function time(chatClient, channel, user, msg, args) {
                 const response = await axios.get(
                     `https://api.weatherapi.com/v1/timezone.json?key=${key}&q=${q}`
                 )
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `@${user} current time in ${response.data.location.name}/${response.data.location.country}: ${response.data.location.localtime}`
                 )

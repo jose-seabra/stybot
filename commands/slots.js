@@ -40,12 +40,12 @@ export function slots(chatClient, channel, user, msg, args) {
                 slotsArray[0] === slotsArray[1] &&
                 slotsArray[1] === slotsArray[2]
             ) {
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `@${user} rolled | ${emotesArray[0]} | ${emotesArray[1]} | ${emotesArray[2]} | And won ${emoteset.slotsWin}`
                 )
             } else {
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `@${user} rolled | ${emotesArray[0]} | ${emotesArray[1]} | ${emotesArray[2]} | Better luck next time ${emoteset.slotsLoss}`
                 )

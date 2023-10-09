@@ -7,7 +7,7 @@ import { readyToRun } from "../helpers/commandHandler.js"
 export function commands(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(() => {
-            chatClient.say(
+            chatClient.saySafe(
                 channel,
                 `@${user} a full list of commands can be found at https://tinyurl.com/stybot`
             )

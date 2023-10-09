@@ -9,7 +9,7 @@ export function dice(chatClient, channel, user, msg, args) {
         .then(() => {
             let maxNum
             isNaN(args[0]) ? (maxNum = 6) : (maxNum = args[0])
-            chatClient.say(
+            chatClient.saySafe(
                 channel,
                 `@${user} rolled a ${Math.floor(Math.random() * maxNum) + 1}`
             )

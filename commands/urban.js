@@ -36,9 +36,9 @@ export async function urban(chatClient, channel, user, msg, args) {
                 .replace(/\]/g, "")
                 .replace(/\n/g, " ")
 
-            chatClient.say(channel, definition)
+            chatClient.saySafe(channel, definition)
 
-            sleep(500).then(() => chatClient.say(channel, example))
+            sleep(500).then(() => chatClient.saySafe(channel, example))
         })
         .catch((error) => {})
 }

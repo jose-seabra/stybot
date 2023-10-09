@@ -21,7 +21,7 @@ export async function weather(chatClient, channel, user, msg, args) {
                     response.data.current.condition.text
                 )
 
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `@${user} current weather for ${
                         response.data.location.name

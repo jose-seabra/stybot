@@ -22,7 +22,10 @@ export function trivia(chatClient, channel, user, msg, args) {
 
 async function start(chatClient, channel, user, msg, args) {
     if (status[channel].ongoing) {
-        chatClient.say(channel, `@${user} there is a trivia already running!`)
+        chatClient.saySafe(
+            channel,
+            `@${user} there is a trivia already running!`
+        )
         return
     }
 
@@ -72,7 +75,7 @@ async function start(chatClient, channel, user, msg, args) {
             ]
 
             if (typeString === "multiple") {
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `
                 ${categoryString} 
@@ -81,13 +84,13 @@ async function start(chatClient, channel, user, msg, args) {
                 `
                 )
                 optionsTimeout[channel] = setTimeout(() => {
-                    chatClient.say(
+                    chatClient.saySafe(
                         channel,
                         `${shuffleArray(allAnswers).join(" | ")}`
                     )
                 }, convertSecondsToMiliseconds(settings.optionsTimeoutDuration))
             } else if (typeString === "boolean") {
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `
                 ${categoryString} 
@@ -105,7 +108,7 @@ async function start(chatClient, channel, user, msg, args) {
             }
 
             questionTimeout[channel] = setTimeout(() => {
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `No one got it right! The correct answer was ${correct_answerString}`
                 ),
@@ -114,7 +117,7 @@ async function start(chatClient, channel, user, msg, args) {
             }, convertSecondsToMiliseconds(settings.questionTimeoutDuration))
         })
         .catch((error) => {
-            chatClient.say(
+            chatClient.saySafe(
                 channel,
                 `Error getting trivia! monkaStop ${error.code}`
             )
@@ -125,9 +128,9 @@ function cancel(chatClient, channel, user, msg, args) {
     if (status[channel]?.ongoing) {
         end(chatClient, channel, user, msg, args)
 
-        chatClient.say(channel, `@${user} trivia cancelled!`)
+        chatClient.saySafe(channel, `@${user} trivia cancelled!`)
     } else {
-        chatClient.say(channel, `@${user} there is no trivia running!`)
+        chatClient.saySafe(channel, `@${user} there is no trivia running!`)
     }
 }
 

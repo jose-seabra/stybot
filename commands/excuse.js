@@ -10,7 +10,7 @@ export async function excuse(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const excuse = await fetchExcuse()
-            chatClient.say(channel, `${excuse}`)
+            chatClient.saySafe(channel, `${excuse}`)
         })
         .catch((error) => {})
 }

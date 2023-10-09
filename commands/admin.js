@@ -16,7 +16,7 @@ export function admin(chatClient, channel, user, msg, args) {
 }
 
 function restart(chatClient, channel, user, msg, args) {
-    chatClient.say(channel, `restarting peepoStroke`)
+    chatClient.saySafe(channel, `restarting peepoStroke`)
     const [command, option] = args
 
     exec("pm2 restart stybot", (error, stdout, stderr) => {
@@ -32,14 +32,14 @@ function restart(chatClient, channel, user, msg, args) {
                     break
             }
 
-            chatClient.say(channel, errorMessage)
+            chatClient.saySafe(channel, errorMessage)
             return
         }
     })
 }
 
 function update(chatClient, channel, user, msg, args) {
-    chatClient.say(channel, `updating borpaSpin`)
+    chatClient.saySafe(channel, `updating borpaSpin`)
     const [command, option] = args
 
     exec("git pull", (error, stdout, stderr) => {
@@ -55,10 +55,10 @@ function update(chatClient, channel, user, msg, args) {
                     break
             }
 
-            chatClient.say(channel, errorMessage)
+            chatClient.saySafe(channel, errorMessage)
             return
         }
-        chatClient.say(channel, `successfull update bttvNice`)
+        chatClient.saySafe(channel, `successfull update bttvNice`)
     })
 }
 

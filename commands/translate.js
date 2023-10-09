@@ -27,7 +27,7 @@ export async function translate(chatClient, channel, user, msg, args) {
                     targetLang
                 )
 
-                chatClient.say(
+                chatClient.saySafe(
                     channel,
                     `@${user} lang:${detectedLanguage} "${translation}"`
                 )

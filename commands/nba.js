@@ -10,7 +10,7 @@ const key = process.env.RAPIDAPI_KEY
 
 export function nba(chatClient, channel, user, msg, args) {
     if (!callables[args[0]]) {
-        chatClient.say(
+        chatClient.saySafe(
             channel,
             `@${user} Invalid command. Use one of the following arguments: 
             ${Object.keys(callables).join(" | ")}`
@@ -25,7 +25,7 @@ export function nba(chatClient, channel, user, msg, args) {
             }
         })
         .catch((error) => {
-            chatClient.say(channel, `@${user} ${error}`)
+            chatClient.saySafe(channel, `@${user} ${error}`)
         })
 }
 
@@ -35,7 +35,7 @@ async function stats(chatClient, channel, user, msg, args) {
     const teamId = getTeamIdByName(team.join(" "))
 
     if (teamId === undefined) {
-        chatClient.say(channel, `@${user} Invalid team name`)
+        chatClient.saySafe(channel, `@${user} Invalid team name`)
         return
     }
 
@@ -72,7 +72,7 @@ async function stats(chatClient, channel, user, msg, args) {
     }/${response.data.response.points.against.average.all}
     `
 
-    chatClient.say(channel, output)
+    chatClient.saySafe(channel, output)
 }
 
 async function games(chatClient, channel, user, msg, args) {
@@ -102,7 +102,7 @@ async function games(chatClient, channel, user, msg, args) {
         output += listGame(game)
     })
 
-    chatClient.say(channel, output)
+    chatClient.saySafe(channel, output)
 }
 
 function initDates() {

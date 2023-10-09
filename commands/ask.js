@@ -29,9 +29,7 @@ export async function ask(chatClient, channel, user, msg, args) {
             let questionPrompt = q
 
             if (q.includes("a:") && q.includes("q:")) {
-                actorPrompt =
-                    q.split("a:")[1].split("q:")[0] +
-                    ". Try to be funny and short when possible."
+                actorPrompt = q.split("a:")[1].split("q:")[0]
                 questionPrompt = q.split("q:")[1]
             }
 

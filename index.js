@@ -4,12 +4,10 @@ import { ChatClient } from "@twurple/chat"
 import { promises as fs } from "fs"
 
 import { enabledChannels, PREFIX } from "./helpers/constants.js"
+import { filterSlurs } from "./helpers/helper.js"
 
 import * as commands from "./commands/index.js"
-import {
-    status as triviaStatus,
-    end as triviaEnd,
-} from "./commands/trivia.js"
+import { status as triviaStatus, end as triviaEnd } from "./commands/trivia.js"
 
 async function main() {
     const clientId = process.env.CLIENT_ID
@@ -36,6 +34,11 @@ async function main() {
         channels: enabledChannels,
     })
 
+    chatClient.saySafe = (channel, text, attributes, rateLimiterOptions) => {
+        const filteredMessage = filterSlurs(text)
+        chatClient.say(channel, filteredMessage, attributes, rateLimiterOptions)
+    }
+
     chatClient.connect()
 
     chatClient.onMessage((channel, user, text, msg) => {
@@ -45,7 +48,7 @@ async function main() {
             triviaStatus[channel].correct_answer.toUpperCase() ===
                 text.toUpperCase()
         ) {
-            chatClient.say(
+            chatClient.saySafe(
                 channel,
                 `@${user} got it! Correct answer is ${triviaStatus[channel].correct_answer}`
             )

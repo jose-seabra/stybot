@@ -6,7 +6,7 @@
   "scripts": {},
   "dependencies": {
     "@twurple/auth": "^7.0.3",
-    "@twurple/chat": "^7.0.6",
+    "@twurple/chat": "^7.0.10",
     "@twurple/eventsub-http": "^7.0.6",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",

@@ -1,4 +1,4 @@
-# cheer
+# commands
 
 <script setup>
 import { PREFIX } from "../../helpers/constants.js"

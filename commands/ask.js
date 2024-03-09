@@ -5,13 +5,11 @@ let status = {}
 import axios from "axios"
 
 import { readyToRun } from "../helpers/commandHandler.js"
-import OpenAI from "openai"
+// import OpenAI from "openai"
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-})
-
-const key = process.env.RAPIDAPI_KEY
+// const openai = new OpenAI({
+//     apiKey: process.env.OPENAI_API_KEY,
+// })
 
 // export async function ask(chatClient, channel, user, msg, args) {
 //     readyToRun(settings, status, channel, user, msg)
@@ -55,20 +53,12 @@ const key = process.env.RAPIDAPI_KEY
 //         .catch((error) => {})
 // }
 
+const key = process.env.RAPIDAPI_KEY
+
 export async function ask(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(async () => {
             const q = args.join(" ")
-
-            const safe = await openai.moderations.create({
-                mode: "text-moderation-latest",
-                input: q,
-            })
-
-            if (safe.results[0].flagged) {
-                chatClient.saySafe(channel, "Don't be weird Dudge")
-                return
-            }
 
             let actorPrompt =
                 "You are a funny chatbot that either replies with accurate responses or sarcasm. Keep responses short when possible"

@@ -26,6 +26,7 @@ export default defineConfig({
                     { text: "dice", link: "/dice" },
                     { text: "excuse", link: "/excuse" },
                     { text: "forsen", link: "/forsen" },
+                    { text: "js", link: "/js" },
                     { text: "nba", link: "/nba" },
                     { text: "pyramid", link: "/pyramid" },
                     { text: "rank", link: "/rank" },

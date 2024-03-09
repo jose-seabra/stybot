@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+    </head>
+    <body>
+        <div id="SamplePlayerDivID"></div>
+
+        <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+        <script type="text/javascript">
+
+        setTimeout(() => {
+            var options = {
+                width: 400,
+                height: 300,
+                channel: "stydevz",
+            }
+            var player = new Twitch.Player("SamplePlayerDivID", options)
+
+            player.addEventListener(Twitch.Embed.CAPTIONS, onCaptionsReceived)
+
+			function onCaptionsReceived(captions) {
+                console.log(captions)
+            }
+        }, 100)
+
+        </script>
+
+    </body>
+</html>
+
+<style>
+    body {
+        background-color: black;
+    }
+</style>

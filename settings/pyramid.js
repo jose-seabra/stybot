@@ -9,5 +9,3 @@ export const settings = {
     userDelay: 60,
     dailyLimit: 0,
 }
-
-

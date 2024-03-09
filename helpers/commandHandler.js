@@ -71,6 +71,7 @@ export function readyToRun(settings, status, channel, user, msg) {
 }
 
 function userPermission(msg) {
+    if (msg === 'VOICE') return permissions.BROADCASTER
     const { userId, isBroadcaster, isMod, isVip, isSubscriber } = msg.userInfo
     if (userId === process.env.TWITCH_UID) return permissions.SUPERUSER
     if (isBroadcaster) return permissions.BROADCASTER

@@ -42,7 +42,10 @@ async function main() {
     })
 
     chatClient.saySafe = (channel, text, attributes, rateLimiterOptions) => {
-        const filteredMessage = filterSlurs(text)
+        let filteredMessage = filterSlurs(text)
+        if (filteredMessage.startsWith("/")) {
+            filteredMessage = filteredMessage.slice(1)
+        }
         chatClient.say(channel, filteredMessage, attributes, rateLimiterOptions)
     }
 

@@ -7,7 +7,7 @@
   "dependencies": {
     "@twurple/auth": "^7.0.10",
     "@twurple/chat": "^7.0.10",
-    "@twurple/eventsub-http": "^7.0.10",
+    "@twurple/eventsub-http": "^7.1.0",
     "axios": "^1.6.7",
     "dotenv": "^16.4.5",
     "isolated-vm": "^4.7.2",

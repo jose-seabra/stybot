@@ -55,6 +55,31 @@ import { readyToRun } from "../helpers/commandHandler.js"
 
 const key = process.env.RAPIDAPI_KEY
 
+const apiProviders = [
+    {
+        name: "openai",
+        model: "openchat-3.5",
+        url: "https://open-ai34.p.rapidapi.com/api/v1/chat/completions",
+        headerHost: "open-ai34.p.rapidapi.com",
+    },
+    {
+        name: "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api",
+        model: "gpt-4-turbo-preview",
+        url: "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions",
+        headerHost:
+            "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com",
+    },
+    {
+        name: "chatgpt-best-price",
+        model: "gpt-3.5-turbo",
+        url: "https://chatgpt-best-price.p.rapidapi.com/v1/chat/completions",
+        headerHost: "chatgpt-best-price.p.rapidapi.com",
+    },
+]
+
+let currentApiIndex = 0
+let attempts = 0
+
 export async function ask(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(async () => {
@@ -70,38 +95,48 @@ export async function ask(chatClient, channel, user, msg, args) {
             }
 
             try {
-                const response = await axios.request({
+                const currentApi = apiProviders[currentApiIndex]
+                const options = {
                     method: "POST",
-                    url: "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions",
+                    url: currentApi.url,
                     headers: {
                         "content-type": "application/json",
                         "X-RapidAPI-Key": key,
-                        "X-RapidAPI-Host":
-                            "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com",
+                        "X-RapidAPI-Host": currentApi.headerHost,
                     },
                     data: {
                         messages: [
                             { role: "system", content: actorPrompt },
                             { role: "user", content: questionPrompt },
                         ],
-                        model: "gpt-4-turbo-preview",
+                        model: currentApi.model,
                         temperature: 1,
                         max_tokens: 120,
                         top_p: 1,
                         frequency_penalty: 0,
                         presence_penalty: 0,
                     },
-                })
+                }
+
+                const response = await axios.request(options)
 
                 chatClient.saySafe(
                     channel,
                     response.data.choices[0].message.content
                 )
             } catch (error) {
-                chatClient.saySafe(
-                    channel,
-                    "Tell Stydevz to fix me SeriousSloth"
-                )
+                console.log(error)
+                if (error.response && error.response.status === 429) {
+                    currentApiIndex =
+                        (currentApiIndex + 1) % apiProviders.length
+                    attempts++
+                    if (attempts >= apiProviders.length) {
+                        throw new Error(
+                            "All API providers have reached their quota"
+                        )
+                    }
+                    ask(chatClient, channel, user, msg, args)
+                }
             }
         })
         .catch((error) => {})

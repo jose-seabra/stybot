@@ -125,18 +125,15 @@ export async function ask(chatClient, channel, user, msg, args) {
                     response.data.choices[0].message.content
                 )
             } catch (error) {
-                console.log(error)
-                if (error.response && error.response.status === 429) {
-                    currentApiIndex =
-                        (currentApiIndex + 1) % apiProviders.length
-                    attempts++
-                    if (attempts >= apiProviders.length) {
-                        throw new Error(
-                            "All API providers have reached their quota"
-                        )
-                    }
-                    ask(chatClient, channel, user, msg, args)
+                currentApiIndex = (currentApiIndex + 1) % apiProviders.length
+                attempts++
+                if (attempts >= apiProviders.length) {
+                    attempts = 0
+                    throw new Error(
+                        "All API providers have reached their quota"
+                    )
                 }
+                ask(chatClient, channel, user, msg, args)
             }
         })
         .catch((error) => {})

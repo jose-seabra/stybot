@@ -5,7 +5,7 @@ import { convertSecondsToMiliseconds } from "../helpers/helper.js"
 let limiter = {}
 let day = new Date().getDate()
 
-export function readyToRun(settings, status, channel, user, msg) {
+export function readyToRun(settings, status, channel, user, msg, bypassDelay = false) {
     return new Promise((resolve, reject) => {
         if (!settings.enabled) return reject("function is disabled")
 
@@ -29,7 +29,7 @@ export function readyToRun(settings, status, channel, user, msg) {
 
         if (!status[channel].ready) return reject("function is not ready")
 
-        if (status[channel].delayUsers.includes(user))
+        if (status[channel].delayUsers.includes(user) && !bypassDelay)
             return reject("user is on cooldown")
 
         if (limiter[settings.name].dailyLimit > 0) {
@@ -46,14 +46,14 @@ export function readyToRun(settings, status, channel, user, msg) {
             limiter[settings.name].dailyUsage++
         }
         
-        if (settings?.globalDelay > 0) {
+        if (settings?.globalDelay > 0 && !bypassDelay) {
             status[channel].ready = false
             setTimeout(() => {
                 status[channel].ready = true
             }, convertSecondsToMiliseconds(settings.globalDelay))
         }
 
-        if (settings?.userDelay > 0) {
+        if (settings?.userDelay > 0 && !bypassDelay) {
             if (!status[channel].delayUsers.includes(user)) {
                 status[channel].delayUsers.push(user)
 

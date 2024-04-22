@@ -81,7 +81,6 @@ const apiProviders = [
         url: "https://chat-gpt26.p.rapidapi.com/",
         headerHost: "chat-gpt26.p.rapidapi.com",
     },
-
 ]
 
 let currentApiIndex = 0
@@ -136,15 +135,12 @@ export async function ask(chatClient, channel, user, msg, args) {
                 attempts++
                 if (attempts >= apiProviders.length) {
                     attempts = 0
-                    chatClient.saySafe(
-                        channel,
-                        "All API providers failed"
-                    )
+                    chatClient.saySafe(channel, "All API providers failed")
                     throw new Error(
                         "All API providers have reached their quota"
                     )
                 }
-                ask(chatClient, channel, user, msg, args)
+                ask(chatClient, channel, user, msg, args, (bypassDelay = true))
             }
         })
         .catch((error) => {})

@@ -58,7 +58,7 @@ function update(chatClient, channel, user, msg, args) {
             chatClient.saySafe(channel, errorMessage)
             return
         }
-        chatClient.saySafe(channel, `successfull update bttvNice`)
+        chatClient.saySafe(channel, `successful update bttvNice`)
     })
 }
 

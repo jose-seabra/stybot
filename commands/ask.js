@@ -58,7 +58,7 @@ const key = process.env.RAPIDAPI_KEY
 const apiProviders = [
     {
         name: "openai",
-        model: "openchat-3.5",
+        model: null,
         url: "https://open-ai34.p.rapidapi.com/api/v1/chat/completions",
         headerHost: "open-ai34.p.rapidapi.com",
     },
@@ -115,13 +115,18 @@ export async function ask(chatClient, channel, user, msg, args) {
                             { role: "system", content: actorPrompt },
                             { role: "user", content: questionPrompt },
                         ],
-                        model: currentApi.model,
                         temperature: 1,
                         max_tokens: 120,
                         top_p: 1,
                         frequency_penalty: 0,
                         presence_penalty: 0,
+                        use_cache: false,
+                        stream: false,
                     },
+                }
+
+                if (currentApi.model) {
+                    options.data.model = currentApi.model
                 }
 
                 const response = await axios.request(options)

@@ -58,8 +58,8 @@ const key = process.env.RAPIDAPI_KEY
 const apiProviders = [
     {
         name: "openai",
-        model: null,
-        url: "https://open-ai34.p.rapidapi.com/api/v1/chat/completions",
+        model: "Qwen/Qwen2-72B-Instruct",
+        url: "https://open-ai34.p.rapidapi.com/v1/chat/completions",
         headerHost: "open-ai34.p.rapidapi.com",
     },
     {

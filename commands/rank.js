@@ -8,9 +8,12 @@ import { readyToRun } from "../helpers/commandHandler.js"
 export function rank(chatClient, channel, user, msg, args) {
     readyToRun(settings, status, channel, user, msg)
         .then(() => {
-            const rank = Math.floor(Math.random() * 7) + 1
-            const number = Math.floor(Math.random() * 5) + 1
+            const rank =
+                Math.ceil(Math.random() * 100) <= 2
+                    ? 9
+                    : Math.ceil(Math.random() * 8)
 
+            let number = Math.ceil(Math.random() * 5)
             let emote
             let emoteset
             let rankname
@@ -33,20 +36,29 @@ export function rank(chatClient, channel, user, msg, args) {
                     rankname = "Gold"
                     break
                 case 4:
-                    emote = emoteset.dice6
+                    emote = emoteset.dice5
                     rankname = "Platinum"
                     break
                 case 5:
-                    emote = emoteset.dice8
+                    emote = emoteset.dice6
                     rankname = "Diamond"
                     break
                 case 6:
-                    emote = emoteset.dice9
+                    emote = emoteset.dice7
                     rankname = "Master"
                     break
                 case 7:
-                    emote = emoteset.dice10
+                    emote = emoteset.dice8
                     rankname = "Grandmaster"
+                    break
+                case 8:
+                    emote = emoteset.dice9
+                    rankname = "Champion"
+                    break
+                case 9:
+                    emote = emoteset.dice10
+                    rankname = "Top"
+                    number = Math.ceil(Math.random() * 500)
                     break
             }
             chatClient.saySafe(

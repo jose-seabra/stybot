@@ -23,10 +23,10 @@ export function convertSecondsToMiliseconds(seconds) {
 }
 
 export function filterSlurs(message) {
-    const slurs = ["child fucker", "cunt", "faggot", "kys", "nigga", "nigger"]
+    const slurs = ["child fucker", "cunt", "fag", "kys", "nigga", "nigger"]
     const filteredMessage = slurs.reduce((acc, slur) => {
-        const regex = new RegExp(`\\b${slur}\\b`, "gi")
-        return acc.replace(regex, "*".repeat(slur.length))
+        const regex = new RegExp(`\\b\\w*${slur}\\w*\\b`, "gi")
+        return acc.replace(regex, (match) => "*".repeat(match.length))
     }, message)
     return filteredMessage
 }
@@ -40,7 +40,11 @@ export async function retryOnDnsFailure(action, retryAttempts = 1) {
         if (retryAttempts >= MAX_RETRY_ATTEMPTS) {
             throw error
         }
-        fs.writeFile("./logs/notice.log", "\n" + `Retry number: ${retryAttempts}`, { flag: "a" })
+        fs.writeFile(
+            "./logs/notice.log",
+            "\n" + `Retry number: ${retryAttempts}`,
+            { flag: "a" }
+        )
 
         if (error.code.includes("EAI_AGAIN")) {
             await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS))

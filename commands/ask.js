@@ -65,7 +65,7 @@ const apiProviders = [
     },
     {
         name: "chatgpt-best-price",
-        model: "gpt-3.5-turbo",
+        model: "gpt-4o-mini",
         url: "https://chatgpt-best-price.p.rapidapi.com/v1/chat/completions",
         headerHost: "chatgpt-best-price.p.rapidapi.com",
     },
@@ -80,8 +80,15 @@ const apiProviders = [
 let currentApiIndex = 0
 let attempts = 0
 
-export async function ask(chatClient, channel, user, msg, args) {
-    readyToRun(settings, status, channel, user, msg)
+export async function ask(
+    chatClient,
+    channel,
+    user,
+    msg,
+    args,
+    bypassDelay = false
+) {
+    readyToRun(settings, status, channel, user, msg, bypassDelay)
         .then(async () => {
             const q = args.join(" ")
 

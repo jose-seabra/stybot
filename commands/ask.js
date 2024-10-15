@@ -121,7 +121,6 @@ export async function ask(
                         top_p: 1,
                         frequency_penalty: 0,
                         presence_penalty: 0,
-                        use_cache: false,
                         stream: false,
                     },
                 }

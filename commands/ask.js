@@ -62,18 +62,29 @@ const apiProviders = [
         url: "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions",
         headerHost:
             "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com",
+        data: {
+            model: "gpt-4o",
+            max_tokens: 120,
+            temperature: 0.9,
+        },
     },
     {
         name: "chatgpt-best-price",
         model: "gpt-4o-mini",
         url: "https://chatgpt-best-price.p.rapidapi.com/v1/chat/completions",
         headerHost: "chatgpt-best-price.p.rapidapi.com",
+        data: {
+            model: "gpt-4o-mini",
+        },
     },
     {
         name: "chat-gpt26",
         model: "gpt-3.5-turbo",
         url: "https://chat-gpt26.p.rapidapi.com/",
         headerHost: "chat-gpt26.p.rapidapi.com",
+        data: {
+            model: "gpt-3.5-turbo",
+        },
     },
 ]
 
@@ -116,17 +127,8 @@ export async function ask(
                             { role: "system", content: actorPrompt },
                             { role: "user", content: questionPrompt },
                         ],
-                        temperature: 1,
-                        max_tokens: 120,
-                        top_p: 1,
-                        frequency_penalty: 0,
-                        presence_penalty: 0,
-                        stream: false,
+                        ...currentApi.data,
                     },
-                }
-
-                if (currentApi.model) {
-                    options.data.model = currentApi.model
                 }
 
                 const response = await axios.request(options)

@@ -142,12 +142,15 @@ export async function ask(
                 }
 
                 const response = await axios.request(options)
-
-                chatClient.saySafe(
-                    channel,
+                let messageOutput =
                     response.data.choices?.[0].message.content ||
-                        response.data.result
-                )
+                    response.data.result
+
+                if (messageOutput.length > 497) {
+                    messageOutput = messageOutput.slice(0, 497) + "..."
+                }
+
+                chatClient.saySafe(channel, messageOutput)
             } catch (error) {
                 currentApiIndex = (currentApiIndex + 1) % apiProviders.length
                 attempts++
